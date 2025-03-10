@@ -7,23 +7,27 @@ const logger = require('../utils/logger');
 /**
  * Get all games
  */
+
+const getGames = async () => {
+    return await models.Game.findAll({
+        include: [
+            {model: models.Champion, as: 'champion1'},
+            {model: models.Champion, as: 'champion2'},
+            {model: models.Champion, as: 'champion3'},
+            {model: models.Champion, as: 'champion4'},
+            {model: models.Champion, as: 'champion5'},
+            {model: models.Champion, as: 'champion6'},
+            {model: models.Champion, as: 'champion7'},
+            {model: models.Champion, as: 'champion8'},
+            {model: models.Champion, as: 'champion9'},
+            {model: models.Champion, as: 'champion10'},
+            {model: models.Event, as: 'eventDetails'} // Include event data if needed
+        ]
+    });
+}
 const getAllGames = async (req, res) => {
     try {
-        const games = await models.Game.findAll({
-            include: [
-                { model: models.Champion, as: 'champion1' },
-                { model: models.Champion, as: 'champion2' },
-                { model: models.Champion, as: 'champion3' },
-                { model: models.Champion, as: 'champion4' },
-                { model: models.Champion, as: 'champion5' },
-                { model: models.Champion, as: 'champion6' },
-                { model: models.Champion, as: 'champion7' },
-                { model: models.Champion, as: 'champion8' },
-                { model: models.Champion, as: 'champion9' },
-                { model: models.Champion, as: 'champion10' },
-                { model: models.Event, as: 'eventDetails' } // Include event data if needed
-            ]
-        });
+        const games = await getGames();
         return res.json(games);
     } catch (error) {
         logger.error(`Error fetching games: ${error.message}`);
@@ -33,12 +37,57 @@ const getAllGames = async (req, res) => {
         });
     }
 };
+const arraySameElemsNum = (arr1, arr2) => {
+    if (!arr1.length === arr2.length) return 0;
+    return arr1.reduce((sum, el, i) => {
+        return (el === arr2[i]) ? sum + 1 : sum;
+    }, 0)
+}
+const findMatchesNumber = (game, filter) => {
+    const pick1 = filter[1];
+    const pick2 = filter[2];
+    const pick1Categories = [
+        game.champion1.category,
+        game.champion2.category,
+        game.champion3.category,
+        game.champion4.category,
+        game.champion5.category,
+    ];
+    const pick2Categories = [
+        game.champion6.category,
+        game.champion7.category,
+        game.champion8.category,
+        game.champion9.category,
+        game.champion10.category,
+    ];
+    return Math.max(
+        arraySameElemsNum(pick1, pick1Categories) + arraySameElemsNum(pick2, pick2Categories),
+        arraySameElemsNum(pick1, pick2Categories) + arraySameElemsNum(pick2, pick1Categories)
+    )
+}
+const getSimilarGames = async (req, res) => {
+    try {
+        const {filter} = req.body;
+        const games = await getGames();
+        const filteredGames = games.filter(el => {
+            const matchesNum =  findMatchesNumber(el,filter);
+            return matchesNum >= 7;
+        })
+        return res.json(filteredGames);
+    } catch (e) {
+        return res.status(500).json({
+            status: 'error',
+            message: e.message
+        });
+    }
+
+}
 /**
  * Get a single game by ID
  */
 const getGameById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         const game = await models.Game.findByPk(id);
 
         if (!game) {
@@ -67,7 +116,7 @@ const createGame = async (req, res) => {
 
         // Check if game with same event already exists
         const existingGame = await models.Game.findOne({
-            where: { event: req.body.event }
+            where: {event: req.body.event}
         });
 
         if (existingGame) {
@@ -78,7 +127,7 @@ const createGame = async (req, res) => {
             });
         }
 
-        const gameData = { ...req.body };
+        const gameData = {...req.body};
 
         // Ensure all required fields are present
         if (!gameData.pick1 || !gameData.pick2 || !gameData.pick3 ||
@@ -116,9 +165,9 @@ const createGame = async (req, res) => {
  */
 const updateGame = async (req, res) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         const [updated] = await models.Game.update(req.body, {
-            where: { id }
+            where: {id}
         });
 
         if (updated === 0) {
@@ -144,9 +193,9 @@ const updateGame = async (req, res) => {
  */
 const deleteGame = async (req, res) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         const deleted = await models.Game.destroy({
-            where: { id }
+            where: {id}
         });
 
         if (deleted === 0) {
@@ -171,12 +220,12 @@ const deleteGame = async (req, res) => {
  */
 const getGamesByTeam = async (req, res) => {
     try {
-        const { team } = req.params;
+        const {team} = req.params;
         const games = await models.Game.findAll({
             where: {
                 [models.Sequelize.Op.or]: [
-                    { team1: team },
-                    { team2: team }
+                    {team1: team},
+                    {team2: team}
                 ]
             }
         });
@@ -196,11 +245,11 @@ const getGamesByTeam = async (req, res) => {
  */
 const getGamesByWinner = async (req, res) => {
     try {
-        const { status } = req.params;
+        const {status} = req.params;
         const winnerStatus = status === 'true';
 
         const games = await models.Game.findAll({
-            where: { winner: winnerStatus }
+            where: {winner: winnerStatus}
         });
 
         return res.json(games);
@@ -218,9 +267,9 @@ const getGamesByWinner = async (req, res) => {
  */
 const getGamesByEvent = async (req, res) => {
     try {
-        const { event } = req.params;
+        const {event} = req.params;
         const games = await models.Game.findAll({
-            where: { event }
+            where: {event}
         });
 
         return res.json(games);
@@ -235,6 +284,7 @@ const getGamesByEvent = async (req, res) => {
 
 module.exports = {
     getAllGames,
+    getSimilarGames,
     getGameById,
     createGame,
     updateGame,

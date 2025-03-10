@@ -12,18 +12,25 @@ const activeRoute = ref(route.name);
       <div class="nav-logo">Tournament Tracker</div>
       <div class="nav-links">
         <router-link
-            :to="`/events`"
-            class="nav-link"
-            :class="{ active: route.path.includes('/events') }"
-        >
-          Events
-        </router-link>
-        <router-link
             :to="`/games`"
             class="nav-link"
             :class="{ active: route.path.includes('/games') }"
         >
           Games
+        </router-link>
+        <router-link
+            :to="`/champions`"
+            class="nav-link"
+            :class="{ active: route.path.includes('/champions') }"
+        >
+          Champions
+        </router-link>
+        <router-link
+            :to="`/events`"
+            class="nav-link"
+            :class="{ active: route.path.includes('/events') }"
+        >
+          Events
         </router-link>
       </div>
     </nav>

@@ -11,6 +11,13 @@ export const gameApi = {
         return api('games');
     },
 
+    getSimilarGames: (filter)=>{
+        return api(`games/similar`,{
+            method:'POST',
+            body: JSON.stringify({filter:filter})
+        })
+    },
+
     // Get a single game by ID
     getGameById: (id) => {
         return api(`games/${id}`);

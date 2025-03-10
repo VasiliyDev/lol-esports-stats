@@ -5,9 +5,11 @@ const logger = require('../utils/logger');
 /**
  * Get all champions
  */
+
+const { Champion, Category } = require('../models');
 const getAllChampions = async (req, res) => {
     try {
-        const champions = await models.Champion.findAll();
+        const champions = await Champion.findAll();
         return res.json(champions);
     } catch (error) {
         logger.error(`Error fetching champions: ${error.message}`);
@@ -17,6 +19,56 @@ const getAllChampions = async (req, res) => {
         });
     }
 };
+
+const getAllCategories = async (req, res) => {
+    try {
+        const champions = await Category.findAll();
+        return res.json(champions);
+    } catch (error) {
+        logger.error(`Error fetching categories: ${error.message}`);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch categories'
+        });
+    }
+};
+
+async function setChampionCategory(req, res) {
+    try {
+        const { id:championId } = req.params;
+        const {category:categoryId} = req.body
+        // Check if the category exists
+        const category = await Category.findByPk(categoryId);
+        if (!category) {
+            return res.status(404).json({
+                status: 'error',
+                message: `Category with ID ${categoryId} not found.`
+            });
+        }
+
+        // Find the champion
+        const champion = await Champion.findByPk(championId);
+        if (!champion) {
+            return res.status(404).json({
+                status: 'error',
+                message: `Champion with ID ${championId} not found.`
+            });
+        }
+
+        champion.category = categoryId;
+        await champion.save();
+        return res.status(200).json({
+            status: 'success',
+            message: `Champion category updated successfully.`,
+            champion:champion
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
+}
 
 /**
  * Get a single champion by ID
@@ -337,6 +389,8 @@ const deleteChampion = async (req, res) => {
 
 module.exports = {
     getAllChampions,
+    getAllCategories,
+    setChampionCategory,
     getChampionById,
     getChampionsByRole,
     getChampionsByName,

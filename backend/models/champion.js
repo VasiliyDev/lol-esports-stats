@@ -34,6 +34,10 @@ module.exports = (sequelize) => {
 
     Champion.associate = (models) => {
         // One-to-Many: One Champion can be picked in many game positions
+        Champion.belongsTo(models.Category, {
+            foreignKey: 'category',
+            as: 'categoryInfo'
+        });
         Champion.hasMany(models.Game, {
             foreignKey: 'pick1',
             as: 'gamesAsPick1'

@@ -49,7 +49,7 @@ async function getGameLinks(matchUrl) {
         let gameLinks = [];
 
         // Extract only "Game N" links
-        $(".navbar-nav .game-menu-button a").each((_, element) => {
+        $(".navbar-nav .game-menu-button a, .navbar-nav .game-menu-button-active a").each((_, element) => {
             const href = $(element).attr("href");
             const title = $(element).text().trim();
             if (title.match(/^Game \d+$/)) {

@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Import your view components
 import EventsListPage from "../pages/events/list/EventsListPage.vue";
 import GamesListPage from "../pages/games/list/GamesListPage.vue";
-// Import other views as needed
+import ChampionList from "../pages/champions/ChampionList.vue";
+import CollectionPage from "@/pages/collections/CollectionPage.vue";
 
 const routes = [
     {
@@ -20,6 +21,16 @@ const routes = [
         path: '/games',
         name: 'games',
         component: GamesListPage
+    },
+    {
+        path: '/champions',
+        name: 'champions',
+        component: ChampionList
+    },
+    {
+        path: '/collection',
+        name: 'collection',
+        component: CollectionPage
     }
     // Add more routes as needed
 ]
