@@ -41,11 +41,13 @@ module.exports = (sequelize) => {
     CollectionGameRelation.associate = (models) => {
         // Define belongsTo relationships for both foreign keys
         CollectionGameRelation.belongsTo(models.Collection, {
-            foreignKey: 'collection_id'
+            foreignKey: 'collection_id',
+            onDelete: 'CASCADE'
         });
 
         CollectionGameRelation.belongsTo(models.Game, {
-            foreignKey: 'game_id'
+            foreignKey: 'game_id',
+            onDelete: 'CASCADE'
         });
     };
 

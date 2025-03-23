@@ -26,8 +26,10 @@ module.exports = (sequelize) => {
             through: models.CollectionGameRelation,
             foreignKey: 'collection_id',
             otherKey: 'game_id',
-            as: 'games'
+            as: 'games',
+            onDelete: 'CASCADE'
         });
+
     };
 
     return Collection;
