@@ -6,6 +6,7 @@ import GamesListPage from "../pages/games/list/GamesListPage.vue";
 import ChampionList from "../pages/champions/ChampionList.vue";
 import CollectionPage from "@/pages/collections/CollectionPage.vue";
 import CollectionsList from "@/pages/collections/CollectionsList.vue"
+import TestPage from "@/pages/testPage/TestPage.vue";
 
 const routes = [
     {
@@ -37,6 +38,11 @@ const routes = [
         path: '/collections',
         name: 'collections',
         component: CollectionsList,
+    },
+    {
+        path: '/test',
+        name: "test",
+        component: TestPage
     }
     // Add more routes as needed
 ]
