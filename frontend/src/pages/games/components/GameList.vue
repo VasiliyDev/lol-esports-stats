@@ -93,7 +93,7 @@ const addGameToCollection = (game) =>{
             <button class="action-button" @click="createCollection(game)">
               Create collection
             </button>
-            <button @click="addGameToCollection(game)">
+            <button v-if="!collectionsStore.isGameInCollection(game.id)"  @click="addGameToCollection(game)">
               Add to collection
             </button>
           </div>

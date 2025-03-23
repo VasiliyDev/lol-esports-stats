@@ -1,10 +1,12 @@
 import {defineStore} from 'pinia'
 import {ref, computed} from 'vue'
 import {collectionApi} from "@/api/collections.js";
+import {useQueryClient} from "@tanstack/vue-query";
 
 
 export const useCollectionStore = defineStore('collection', () => {
     // State
+    const queryClient = useQueryClient()
     const activeCollectionId = ref()
     const activeCollectionName = ref()
     const activeCollectionNewItems = ref([])
@@ -53,8 +55,6 @@ export const useCollectionStore = defineStore('collection', () => {
 
         }
         activeCollectionNewItems.value.push(game);
-        console.log(activeCollectionId.value)
-        console.log(activeCollectionNewItems)
     }
     const clearActiveCollection = () => {
         activeCollectionName.value = undefined
@@ -65,6 +65,7 @@ export const useCollectionStore = defineStore('collection', () => {
 
     const deleteOldGame = async(id) => {
         const result = await collectionApi.removeGameFromCollection(activeCollectionId.value, id);
+        queryClient.invalidateQueries({ queryKey: ['collections'] })
         return fetchCollection()
 
     }
@@ -99,6 +100,7 @@ export const useCollectionStore = defineStore('collection', () => {
             await collectionApi.renameCollection(activeCollectionId.value, activeCollectionName.value)
             await collectionApi.addGamesToCollection(activeCollectionId.value, activeCollectionNewItems.value.map(el => el.id))
         }
+        queryClient.invalidateQueries({ queryKey: ['collections'] })
         await fetchCollection()
 
 
@@ -109,6 +111,17 @@ export const useCollectionStore = defineStore('collection', () => {
 
     }
 
+    const allGamesInCollection = computed(()=>{
+        return [
+            ...activeCollectionItems.value,
+            ...activeCollectionNewItems.value
+        ]
+    })
+
+    const isGameInCollection = (id) => {
+        return allGamesInCollection.value.some(el=> el.id === id)
+    }
+
 
     return {
         isActiveCollection,
@@ -117,6 +130,7 @@ export const useCollectionStore = defineStore('collection', () => {
         getActiveCollectionItems,
         getActiveCollectionNewItems,
         getActiveCollectionName,
+        isGameInCollection,
         setActiveCollectionName,
         clearActiveCollection,
         deleteOldGame,
