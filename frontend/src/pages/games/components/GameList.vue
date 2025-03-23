@@ -1,6 +1,8 @@
 <script setup>
 import {useRouter} from "vue-router";
 import {useCollections} from "../../../../composables/collections.js";
+import {useCollectionStore} from "../../../stores/collection.js";
+import {storeToRefs} from "pinia";
 
 const props = defineProps({
   games: {
@@ -29,6 +31,13 @@ const createCollection = game => {
   collectionStore.setFilter(filter);
   router.push({name: 'collection'})
 }
+
+const collectionsStore = useCollectionStore()
+const addGameToCollection = (game) =>{
+  collectionsStore.addGameToActiveCollection(game)
+}
+
+
 </script>
 
 <template>
@@ -83,6 +92,9 @@ const createCollection = game => {
             <span v-else class="no-link">N/A</span>
             <button class="action-button" @click="createCollection(game)">
               Create collection
+            </button>
+            <button @click="addGameToCollection(game)">
+              Add to collection
             </button>
           </div>
         </td>

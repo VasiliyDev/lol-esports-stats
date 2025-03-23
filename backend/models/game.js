@@ -1,5 +1,5 @@
 // models/game.js
-const { DataTypes } = require('sequelize');
+const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
     const Game = sequelize.define('Game', {
@@ -179,6 +179,13 @@ module.exports = (sequelize) => {
         Game.belongsTo(models.Champion, {
             foreignKey: 'pick10',
             as: 'champion10'
+        });
+
+        Game.belongsToMany(models.Collection, {
+            through: models.CollectionGameRelation,
+            foreignKey: 'game_id',
+            otherKey: 'collection_id',
+            as: 'collections'
         });
 
 

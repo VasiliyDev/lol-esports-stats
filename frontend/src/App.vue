@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import CollectionSidebar from "./components/CollectionSidebar.vue";
 
 const route = useRoute();
 const activeRoute = ref(route.name);
@@ -37,6 +38,7 @@ const activeRoute = ref(route.name);
 
     <main class="app-content">
       <router-view />
+      <CollectionSidebar/>
     </main>
   </div>
 </template>
@@ -93,6 +95,7 @@ const activeRoute = ref(route.name);
   flex: 1;
   padding: 20px;
   background-color: #f5f5f5;
+  display:flex;
 }
 
 @media (max-width: 600px) {

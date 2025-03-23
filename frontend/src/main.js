@@ -3,10 +3,11 @@ import './style.css'
 import App from './App.vue'
 import router from './router'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import {createPinia} from "pinia";
 
 
 const app = createApp(App)
-
+const pinia = createPinia()
 // Configure Vue Query with default options
 app.use(VueQueryPlugin, {
     queryClientConfig: {
@@ -21,4 +22,5 @@ app.use(VueQueryPlugin, {
 })
 
 app.use(router)
+app.use(pinia)
 app.mount('#app')
