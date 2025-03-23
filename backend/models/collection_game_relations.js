@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'collection_game_relations',
-        schema: 'pg_default',
+        schema: 'public',
         timestamps: false,
         underscored: true,
         indexes: [

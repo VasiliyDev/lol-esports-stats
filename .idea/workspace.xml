@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/controllers/collectionController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/collection_game_relations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/collections.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/collections.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/collectionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/collectionController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/collection_game_relations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/collection_game_relations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/collections.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/collections.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +108,7 @@
       <workItem from="1742578683719" duration="4560000" />
       <workItem from="1742656665373" duration="9023000" />
       <workItem from="1742710631747" duration="3516000" />
-      <workItem from="1742714667313" duration="604000" />
+      <workItem from="1742714667313" duration="8883000" />
     </task>
     <servers />
   </component>

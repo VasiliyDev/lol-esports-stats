@@ -5,6 +5,7 @@ import EventsListPage from "../pages/events/list/EventsListPage.vue";
 import GamesListPage from "../pages/games/list/GamesListPage.vue";
 import ChampionList from "../pages/champions/ChampionList.vue";
 import CollectionPage from "@/pages/collections/CollectionPage.vue";
+import CollectionsList from "@/pages/collections/CollectionsList.vue"
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/collection',
         name: 'collection',
         component: CollectionPage
+    },
+    {
+        path: '/collections',
+        name: 'collections',
+        component: CollectionsList,
     }
     // Add more routes as needed
 ]

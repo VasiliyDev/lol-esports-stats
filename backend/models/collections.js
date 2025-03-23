@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'collections',
-        schema: 'pg_default',
+        schema: 'public',
         timestamps: false,
         underscored: true,
     });

@@ -3,6 +3,7 @@ const healthRoutes = require('./health');
 const eventRoutes = require('./events');
 const gameRoutes = require('./games')
 const championRoutes = require('./champions')
+const collectionsRoutes = require('./collections')
 
 module.exports = (app) => {
     // Register all routes
@@ -10,6 +11,7 @@ module.exports = (app) => {
     app.use('/api/events', eventRoutes);
     app.use('/api/games', gameRoutes)
     app.use('/api/champions', championRoutes)
+    app.use('/api/collections', collectionsRoutes)
 
     // Add other route groups here
     // app.use('/api/users', userRoutes);

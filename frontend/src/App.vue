@@ -33,6 +33,13 @@ const activeRoute = ref(route.name);
         >
           Events
         </router-link>
+        <router-link
+            :to="`/collections`"
+            class="nav-link"
+            :class="{ active: route.path.includes('/collection') }"
+        >
+          Collections
+        </router-link>
       </div>
     </nav>
 
