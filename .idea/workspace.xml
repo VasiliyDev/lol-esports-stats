@@ -5,37 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/controllers/regionController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controllers/ttt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/createDb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/filters/parsing_restrictions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/VOD.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/gamePlayer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/league.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/match.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/player.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/region.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/team.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/team_match.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/tournament.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/parsing.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/gameWindowService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/leagueService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsApiService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsDataProcessingService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/matchDetailService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/matchService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/teamService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/services/lolEsports/tournamentService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/collection_game_relations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/collection_game_relations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/collections.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/collections.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/event.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/championService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/esportsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/eventService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/leagueController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +117,7 @@
       <workItem from="1743272810163" duration="3180000" />
       <workItem from="1743342886975" duration="841000" />
       <workItem from="1743352492168" duration="4853000" />
-      <workItem from="1743360156952" duration="393000" />
+      <workItem from="1743360156952" duration="563000" />
     </task>
     <servers />
   </component>

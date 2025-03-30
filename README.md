@@ -7,7 +7,7 @@
 
 ***MIGRATION***
 
-`docker exec -it historical-data-api-1 npm run db:reset`
+`docker exec historical-data-api-1 node createDb.js`
 
 
 ***WEB***
