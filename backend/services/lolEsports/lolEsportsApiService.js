@@ -1,5 +1,6 @@
-// lolesports-api.js
-export default class LolEsportsAPI {
+
+
+class LolEsportsAPI {
     constructor() {
         this.headers = {
             "x-api-key": "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z" // Public API key
@@ -26,7 +27,7 @@ export default class LolEsportsAPI {
         return data.data;
     }
 
-    async getCompletedEvents(tournamentId) {
+    async getCompletedTournaments(tournamentId) {
         const response = await fetch(`${this.baseUrl}/getCompletedEvents?hl=en-US&tournamentId=${tournamentId}`, {
             method: "GET",
             headers: this.headers
@@ -64,12 +65,13 @@ export default class LolEsportsAPI {
 
     async getWindow(gameId, startingTime = "") {
         const params = startingTime ? `?startingTime=${startingTime}` : "";
-        const response = await fetch(`${this.liveStatsUrl}/window/${gameId}`, {
+        const response = await fetch(`${this.liveStatsUrl}/window/${gameId}${params}`, {
             method: "GET",
             headers: this.headers
         });
         return await response.json();
     }
+
     async getMatchTimeline(gameId) {
         const response = await fetch(`${this.liveStatsUrl}/details/${gameId}`, {
             method: "GET",
@@ -88,3 +90,8 @@ export default class LolEsportsAPI {
         return data.data;
     }
 }
+
+// Create a singleton instance
+const lolEsportsAPI = new LolEsportsAPI();
+
+module.exports = {lolEsportsAPI};

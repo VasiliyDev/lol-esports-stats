@@ -20,17 +20,17 @@ module.exports = (sequelize) => {
         underscored: true,
     });
 
-    Collection.associate = (models) => {
-        // Many-to-many relationship with Games through CollectionGameRelation
-        Collection.belongsToMany(models.Game, {
-            through: models.CollectionGameRelation,
-            foreignKey: 'collection_id',
-            otherKey: 'game_id',
-            as: 'games',
-            onDelete: 'CASCADE'
-        });
-
-    };
+    // Collection.associate = (models) => {
+    //     // Many-to-many relationship with Games through CollectionGameRelation
+    //     Collection.belongsToMany(models.Game, {
+    //         through: models.CollectionGameRelation,
+    //         foreignKey: 'collection_id',
+    //         otherKey: 'game_id',
+    //         as: 'games',
+    //         onDelete: 'CASCADE'
+    //     });
+    //
+    // };
 
     return Collection;
 };
