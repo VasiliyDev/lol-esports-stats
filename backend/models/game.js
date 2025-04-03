@@ -62,6 +62,11 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
             comment: 'Game duration in seconds'
+        },
+        game_start_date: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            comment: 'Timestamp when the game started'
         }
     }, {
         tableName: 'games',

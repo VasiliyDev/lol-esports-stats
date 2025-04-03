@@ -1,6 +1,7 @@
 // controllers/gameController.js
 const models = require('../models');
 const logger = require('../utils/logger');
+const {Op} = require("sequelize");
 
 // The Game model is now accessible as models.Game
 
@@ -10,18 +11,33 @@ const logger = require('../utils/logger');
 
 const getGames = async () => {
     return await models.Game.findAll({
+        where: {
+            state: {
+                [Op.ne]: 'unneeded'  // not equal to 'unneeded'
+            },
+            patch_version: {
+                [Op.ne]: null  // not null
+            }
+        },
         include: [
-            {model: models.Champion, as: 'champion1'},
-            {model: models.Champion, as: 'champion2'},
-            {model: models.Champion, as: 'champion3'},
-            {model: models.Champion, as: 'champion4'},
-            {model: models.Champion, as: 'champion5'},
-            {model: models.Champion, as: 'champion6'},
-            {model: models.Champion, as: 'champion7'},
-            {model: models.Champion, as: 'champion8'},
-            {model: models.Champion, as: 'champion9'},
-            {model: models.Champion, as: 'champion10'},
-            {model: models.Event, as: 'eventDetails'} // Include event data if needed
+            {
+                model: models.GamePlayer,
+                as: 'gamePlayers',
+                include: [
+                    {
+                        model: models.Champion,
+                        as: 'champion'
+                    },
+                    {
+                        model: models.Player,
+                        as: 'player'
+                    }
+                ]
+            },
+            { model: models.Team, as: 'blueTeam' },
+            { model: models.Team, as: 'redTeam' },
+            { model: models.Team, as: 'winnerTeam' },
+            { model: models.Match, as: 'match' }
         ]
     });
 }

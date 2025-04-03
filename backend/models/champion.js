@@ -13,8 +13,8 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         role: {
-            type: DataTypes.INTEGER,
-            allowNull: true
+            type: DataTypes.STRING,
+            allowNull: false
         },
         image: {
             type: DataTypes.STRING,

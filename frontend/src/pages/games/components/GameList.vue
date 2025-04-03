@@ -11,11 +11,11 @@ const props = defineProps({
   }
 })
 const getTeam1Picks = (game) => {
-  return [game.champion1, game.champion2, game.champion3, game.champion4, game.champion5];
+  return game.gamePlayers.filter(el=>el.participant_id <= 5)
 }
 
 const getTeam2Picks = (game) => {
-  return [game.champion6, game.champion7, game.champion8, game.champion9, game.champion10];
+  return game.gamePlayers.filter(el=> el.participant_id >= 6)
 }
 
 const router = useRouter();
@@ -45,7 +45,7 @@ const addGameToCollection = (game) =>{
     <table v-if="games.length > 0">
       <thead>
       <tr>
-        <th>Event</th>
+        <th>ID</th>
         <th>Team 1</th>
         <th>Champions</th>
         <th>Team 2</th>
@@ -56,25 +56,25 @@ const addGameToCollection = (game) =>{
       </thead>
       <tbody>
       <tr v-for="game in games" :key="game.id">
-        <td>{{ game.event }}</td>
-        <td :class="{ 'winner-team': game.winner }">{{ game.team1 }}</td>
+        <td>{{ game.id }}</td>
+        <td :class="{ 'winner-team': game.winner }">{{ game.blueTeam.name }}</td>
         <td>
           <div class="champion-grid">
             <div v-for="(pick, index) in getTeam1Picks(game)" :key="`t1-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="pick.image" :alt="pick" :title="pick.name" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>
             </div>
           </div>
         </td>
-        <td :class="{ 'winner-team': !game.winner }">{{ game.team2 }}</td>
+        <td :class="{ 'winner-team': !game.winner }">{{ game.redTeam.name }}</td>
         <td>
           <div class="champion-grid">
             <div v-for="(pick, index) in getTeam2Picks(game)" :key="`t2-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="pick.image" :alt="pick" :title="pick.name" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>

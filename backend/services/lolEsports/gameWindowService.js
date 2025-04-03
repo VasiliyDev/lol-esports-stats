@@ -30,24 +30,35 @@ const findOrCreatePlayer = async (playerData) => {
 };
 
 /**
- * Find or create a champion based on name
- * @param {Object} championData - The champion data from the API
+ * Find or create a champion based on name and role
+ * @param {string} championName - The champion name
+ * @param {string} role - The champion role
  * @returns {Promise<Object>} - The champion object and whether it was created
  */
-const findOrCreateChampion = async (championData) => {
+const findOrCreateChampion = async (championName, role) => {
     try {
-        const [champion, created] = await models.Champion.findOrCreate({
-            where: { name: championData },
-            defaults: {
-                // You might want to add more default values here
-                role: null,
-                image: null
+        // First try to find existing champion with both name and role
+        let champion = await models.Champion.findOne({
+            where: {
+                name: championName,
+                role: role
             }
         });
 
-        return { champion, created };
+        if (champion) {
+            return { champion, created: false };
+        }
+
+        // If not found, create new champion with both name and role
+        champion = await models.Champion.create({
+            name: championName,
+            role: role,
+            image: null
+        });
+
+        return { champion, created: true };
     } catch (error) {
-        logger.error(`Error finding/creating champion ${championData}: ${error.message}`);
+        logger.error(`Error finding/creating champion ${championName} with role ${role}: ${error.message}`);
         throw error;
     }
 };
@@ -139,8 +150,15 @@ const processGameWindowData = async (gameWindowData) => {
 
         // 2. Update game metadata
         const metadata = gameWindowData.gameMetadata;
+        
+        // Get the first frame's timestamp if available
+        const gameStartDate = gameWindowData.frames && gameWindowData.frames.length > 0 
+            ? new Date(gameWindowData.frames[0].rfc460Timestamp)
+            : null;
+
         await game.update({
-            patch_version: metadata.patchVersion
+            patch_version: metadata.patchVersion,
+            game_start_date: gameStartDate
         });
 
         // 3. Determine winner if possible
@@ -168,7 +186,7 @@ const processGameWindowData = async (gameWindowData) => {
                 }
 
                 // Find or create champion
-                const { champion, created: championCreated } = await findOrCreateChampion(playerData.championId);
+                const { champion, created: championCreated } = await findOrCreateChampion(playerData.championId, playerData.role);
                 if (championCreated) {
                     stats.championsCreated++;
                 }
@@ -206,7 +224,7 @@ const processGameWindowData = async (gameWindowData) => {
                 }
 
                 // Find or create champion
-                const { champion, created: championCreated } = await findOrCreateChampion(playerData.championId);
+                const { champion, created: championCreated } = await findOrCreateChampion(playerData.championId, playerData.role);
                 if (championCreated) {
                     stats.championsCreated++;
                 }
@@ -275,7 +293,6 @@ const processAllGamesWindows = async (lolEsportsAPI) => {
 
     try {
         // Get all games that need window processing
-        // For example, games with state 'completed' but no players
         const games = await models.Game.findAll({
             where: {
                 state: 'completed',
@@ -289,6 +306,11 @@ const processAllGamesWindows = async (lolEsportsAPI) => {
                     model: models.GamePlayer,
                     as: 'gamePlayers',
                     required: false
+                },
+                {
+                    model: models.Match,
+                    as: 'match',
+                    required: true
                 }
             ]
         });
