@@ -47,14 +47,17 @@ export const useCollectionStore = defineStore('collection', () => {
 
 
     const addGameToActiveCollection = (game) => {
+        console.log('Trying to add to active collection')
         if (activeCollectionNewItems.value.some(el => el?.id === game?.id)) return;
         if (activeCollectionItems.value.some(el => el?.id === game?.id)) return;
 
         if (activeCollectionId.value === undefined) {
+            console.log('Trying to create new collection')
             createCollection()
 
         }
         activeCollectionNewItems.value.push(game);
+        console.log('New items list', activeCollectionNewItems.value)
     }
     const clearActiveCollection = () => {
         activeCollectionName.value = undefined

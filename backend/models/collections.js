@@ -1,4 +1,3 @@
-// collections.js model
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -7,30 +6,26 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            allowNull: false
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
-        }
+            allowNull: false,
+        },
     }, {
         tableName: 'collections',
         schema: 'public',
-        timestamps: false,
+        timestamps: true,
         underscored: true,
     });
 
-    // Collection.associate = (models) => {
-    //     // Many-to-many relationship with Games through CollectionGameRelation
-    //     Collection.belongsToMany(models.Game, {
-    //         through: models.CollectionGameRelation,
-    //         foreignKey: 'collection_id',
-    //         otherKey: 'game_id',
-    //         as: 'games',
-    //         onDelete: 'CASCADE'
-    //     });
-    //
-    // };
+    Collection.associate = (models) => {
+        Collection.belongsToMany(models.Game, {
+            through: models.CollectionGameRelation,
+            as: 'games',
+            foreignKey: 'collection_id',
+            otherKey: 'game_id',
+        });
+    };
 
     return Collection;
 };

@@ -13,13 +13,13 @@ const {games} = toRefs(props)
 
 const emits = defineEmits(['delete'])
 
+
 const getTeam1Picks = (game) => {
-  return [game.champion1, game.champion2, game.champion3, game.champion4, game.champion5];
+  return game.gamePlayers.filter(el=>el.participant_id <= 5)
 }
 
-
 const getTeam2Picks = (game) => {
-  return [game.champion6, game.champion7, game.champion8, game.champion9, game.champion10];
+  return game.gamePlayers.filter(el=> el.participant_id >= 6)
 }
 
 
@@ -42,7 +42,7 @@ const getTeam2Picks = (game) => {
           <div class="champion-grid"  :class="{ 'winner-team': game.winner }">
             <div v-for="(pick, index) in getTeam1Picks(game)" :key="`t1-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="pick.image" :alt="pick" :title="pick.name" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>
@@ -53,7 +53,7 @@ const getTeam2Picks = (game) => {
           <div class="champion-grid" :class="{ 'winner-team': !game.winner }">
             <div v-for="(pick, index) in getTeam2Picks(game)" :key="`t2-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="pick.image" :alt="pick" :title="pick.name" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>

@@ -34,6 +34,7 @@ const createCollection = game => {
 
 const collectionsStore = useCollectionStore()
 const addGameToCollection = (game) =>{
+  console.log('here', game)
   collectionsStore.addGameToActiveCollection(game)
 }
 
@@ -42,6 +43,7 @@ const addGameToCollection = (game) =>{
 
 <template>
   <div class="table-wrapper">
+    {{collectionsStore.isActiveCollection}}
     <table v-if="games.length > 0">
       <thead>
       <tr>

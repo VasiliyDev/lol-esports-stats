@@ -335,18 +335,24 @@ const getAllCollections = async (req, res) => {
                     as: 'games',
                     through: { attributes: [] },
                     include: [
-                        // Include all the same game details as in getDetailedCollection
-                        {model: models.Champion, as: 'champion1', foreignKey: 'pick1'},
-                        {model: models.Champion, as: 'champion2', foreignKey: 'pick2'},
-                        {model: models.Champion, as: 'champion3', foreignKey: 'pick3'},
-                        {model: models.Champion, as: 'champion4', foreignKey: 'pick4'},
-                        {model: models.Champion, as: 'champion5', foreignKey: 'pick5'},
-                        {model: models.Champion, as: 'champion6', foreignKey: 'pick6'},
-                        {model: models.Champion, as: 'champion7', foreignKey: 'pick7'},
-                        {model: models.Champion, as: 'champion8', foreignKey: 'pick8'},
-                        {model: models.Champion, as: 'champion9', foreignKey: 'pick9'},
-                        {model: models.Champion, as: 'champion10', foreignKey: 'pick10'},
-                        {model: models.Event, as: 'eventDetails'}
+                        {
+                            model: models.GamePlayer,
+                            as: 'gamePlayers',
+                            include: [
+                                {
+                                    model: models.Champion,
+                                    as: 'champion'
+                                },
+                                {
+                                    model: models.Player,
+                                    as: 'player'
+                                }
+                            ]
+                        },
+                        { model: models.Team, as: 'blueTeam' },
+                        { model: models.Team, as: 'redTeam' },
+                        { model: models.Team, as: 'winnerTeam' },
+                        { model: models.Match, as: 'match' }
                     ]
                 }
             ]
@@ -361,13 +367,39 @@ const getAllCollections = async (req, res) => {
     }
 };
 
-/**
- * Get a collection by ID
- */
 const getCollectionById = async (req, res) => {
     try {
         const { id } = req.params;
-        const collection = await getDetailedCollection(id);
+
+        const collection = await Collection.findByPk(id, {
+            include: [
+                {
+                    model: Game,
+                    as: 'games',
+                    through: { attributes: [] },
+                    include: [
+                        {
+                            model: models.GamePlayer,
+                            as: 'gamePlayers',
+                            include: [
+                                {
+                                    model: models.Champion,
+                                    as: 'champion'
+                                },
+                                {
+                                    model: models.Player,
+                                    as: 'player'
+                                }
+                            ]
+                        },
+                        { model: models.Team, as: 'blueTeam' },
+                        { model: models.Team, as: 'redTeam' },
+                        { model: models.Team, as: 'winnerTeam' },
+                        { model: models.Match, as: 'match' }
+                    ]
+                }
+            ]
+        });
 
         if (!collection) {
             return res.status(404).json({
@@ -378,7 +410,7 @@ const getCollectionById = async (req, res) => {
 
         return res.json(collection);
     } catch (error) {
-        logger.error(`Error fetching collection ${req.params.id}: ${error.message}`);
+        logger.error(`Error fetching collection: ${error.message}`);
         return res.status(500).json({
             status: 'error',
             message: 'Failed to fetch collection'
