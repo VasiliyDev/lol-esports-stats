@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import LolEsportsAPI from './lolesports-api';
 import {parsingApi} from "@/pages/testPage/test-parsing.js";
+import {gameApi} from "@/api/games.js";
 
 // Initialize API
 const api = new LolEsportsAPI();
@@ -60,7 +61,9 @@ const startParsing=  async () => {
 const clearLeagues = async () => {
   await parsingApi.clearParsing()
 }
-
+const testFrame = async () => {
+  await gameApi.parseFramesByGameId('113470687277255863')
+}
 
 
 </script>
@@ -70,6 +73,7 @@ const clearLeagues = async () => {
     <h1>LoL Esports API Tester</h1>
     <button @click="startParsing">Start parsing</button>
     <button @click="clearLeagues">Clear leagues</button>
+    <button @click="testFrame">Test frame</button>
     <div class="endpoint-selector">
       <label for="endpoint">Select API Endpoint:</label>
       <select id="endpoint" v-model="activeEndpoint">

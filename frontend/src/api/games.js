@@ -17,6 +17,11 @@ export const gameApi = {
             body: JSON.stringify({filter:filter})
         })
     },
+    parseFramesByGameId: (gameId)=>{
+        return api(`games/${gameId}/window`,{
+            method:'GET'
+        })
+    },
 
     // Get a single game by ID
     getGameById: (id) => {

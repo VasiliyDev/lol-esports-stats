@@ -1,4 +1,3 @@
-// models/match.js
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -24,8 +23,7 @@ module.exports = (sequelize) => {
         },
         start_time: {
             type: DataTypes.DATE,
-            allowNull: true,
-            index: true
+            allowNull: true
         },
         block_name: {
             type: DataTypes.STRING,
@@ -48,10 +46,17 @@ module.exports = (sequelize) => {
         schema: 'public',
         timestamps: false,
         underscored: true,
+
         indexes: [
             {
                 name: 'matches_tournament_id_idx',
                 fields: ['tournament_id']
+            },
+
+            // Clearly add explicit index for the start_time field
+            {
+                name: 'matches_start_time_idx',
+                fields: ['start_time']
             }
         ]
     });

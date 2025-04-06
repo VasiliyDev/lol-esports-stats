@@ -1,6 +1,5 @@
-// models/player.js
+// models/Player.js
 const { DataTypes } = require('sequelize');
-
 module.exports = (sequelize) => {
     const Player = sequelize.define('Player', {
         id: {
@@ -29,6 +28,11 @@ module.exports = (sequelize) => {
         Player.hasMany(models.GamePlayer, {
             foreignKey: 'player_id',
             as: 'gamePlayers'
+        });
+
+        Player.hasMany(models.FrameChampionPlayerGold, {
+            foreignKey: 'player_id',
+            as: 'championsGold'
         });
     };
 

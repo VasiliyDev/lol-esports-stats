@@ -2,6 +2,8 @@
 const models = require('../models');
 const logger = require('../utils/logger');
 const {Op} = require("sequelize");
+const {createFramesForGame} = require("../services/lolEsports/gameFramesService");
+
 
 // The Game model is now accessible as models.Game
 
@@ -34,10 +36,10 @@ const getGames = async () => {
                     }
                 ]
             },
-            { model: models.Team, as: 'blueTeam' },
-            { model: models.Team, as: 'redTeam' },
-            { model: models.Team, as: 'winnerTeam' },
-            { model: models.Match, as: 'match' }
+            {model: models.Team, as: 'blueTeam'},
+            {model: models.Team, as: 'redTeam'},
+            {model: models.Team, as: 'winnerTeam'},
+            {model: models.Match, as: 'match'}
         ]
     });
 }
@@ -86,7 +88,7 @@ const getSimilarGames = async (req, res) => {
         const {filter} = req.body;
         const games = await getGames();
         const filteredGames = games.filter(el => {
-            const matchesNum =  findMatchesNumber(el,filter);
+            const matchesNum = findMatchesNumber(el, filter);
             return matchesNum >= 7;
         })
         return res.json(filteredGames);
@@ -102,26 +104,64 @@ const getSimilarGames = async (req, res) => {
  * Get a single game by ID
  */
 const getGameById = async (req, res) => {
-    try {
-        const {id} = req.params;
-        const game = await models.Game.findByPk(id);
+        try {
+            const {id} = req.params;
+            const game = await models.Game.findByPk(id, {
+                        include: [
 
-        if (!game) {
-            return res.status(404).json({
+
+                            {
+                                model: models.GamePlayer,
+                                as: 'gamePlayers',
+                                include: [
+                                    {
+                                        model: models.Champion,
+                                        as: 'champion'
+                                    },
+                                    {
+                                        model: models.Player,
+                                        as: 'player'
+                                    }
+                                ]
+                            },
+                            {model: models.Team, as: 'blueTeam'},
+                            {model: models.Team, as: 'redTeam'},
+                            {model: models.Team, as: 'winnerTeam'},
+                            {model: models.Match, as: 'match'},
+                            {
+                                model: models.Frame,
+                                as: 'framesPlayer',
+                                include:
+                                    [
+                                        {
+                                            model: models.FrameChampionPlayerGold,
+                                            as: 'championsGold'
+                                        }
+                                    ]
+                            }
+                        ]
+                    }
+                )
+            ;
+
+            if (!game) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'Game not found'
+                });
+            }
+
+            return res.json(game);
+        } catch
+            (error) {
+            logger.error(`Error fetching game ${req.params.id}: ${error.message}`);
+            return res.status(500).json({
                 status: 'error',
-                message: 'Game not found'
+                message: 'Failed to fetch game'
             });
         }
-
-        return res.json(game);
-    } catch (error) {
-        logger.error(`Error fetching game ${req.params.id}: ${error.message}`);
-        return res.status(500).json({
-            status: 'error',
-            message: 'Failed to fetch game'
-        });
     }
-};
+;
 
 /**
  * Create a new game
@@ -298,6 +338,25 @@ const getGamesByEvent = async (req, res) => {
     }
 };
 
+const createFinishedGameFrames = async (req, res) => {
+    const gameId = req.params.id;
+
+    try {
+        const result = await createFramesForGame(gameId);
+        return res.json({
+            status: 'success',
+            data: result
+        });
+    } catch (error) {
+        logger.error(`Error retrieving finished frame for game ${gameId}: ${error.message}`);
+        return res.status(error.statusCode || 500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
+};
+
+
 module.exports = {
     getAllGames,
     getSimilarGames,
@@ -307,5 +366,6 @@ module.exports = {
     deleteGame,
     getGamesByTeam,
     getGamesByWinner,
-    getGamesByEvent
+    getGamesByEvent,
+    createFinishedGameFrames
 };

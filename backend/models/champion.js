@@ -1,5 +1,5 @@
+// models/Champion.js
 const { DataTypes } = require('sequelize');
-
 module.exports = (sequelize) => {
     const Champion = sequelize.define('Champion', {
         id: {
@@ -45,6 +45,11 @@ module.exports = (sequelize) => {
         Champion.hasMany(models.GamePlayer, {
             foreignKey: 'champion_id',
             as: 'gamePlayers'
+        });
+
+        Champion.hasMany(models.FrameChampionPlayerGold, {
+            foreignKey: 'champion_id',
+            as: 'championsGold'
         });
     };
 

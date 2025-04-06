@@ -1,4 +1,3 @@
-// models/tournament.js
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -20,13 +19,11 @@ module.exports = (sequelize) => {
         },
         start_date: {
             type: DataTypes.DATEONLY,
-            allowNull: true,
-            index: true
+            allowNull: true
         },
         end_date: {
             type: DataTypes.DATEONLY,
-            allowNull: true,
-            index: true
+            allowNull: true
         },
         league: {
             type: DataTypes.INTEGER,
@@ -41,17 +38,24 @@ module.exports = (sequelize) => {
         schema: 'public',
         timestamps: false,
         underscored: true,
+
         indexes: [
-            // Composite index for date range queries
             {
-                name: 'tournaments_date_range_idx',
+                name: 'tournaments_date_range_idx', // composite index
                 fields: ['start_date', 'end_date']
+            },
+            {
+                name: 'idx_tournaments_start_date', // explicitly index start_date clearly
+                fields: ['start_date']
+            },
+            {
+                name: 'idx_tournaments_end_date', // explicitly index end_date clearly
+                fields: ['end_date']
             }
         ]
     });
 
     Tournament.associate = (models) => {
-        // Tournament belongs to a League
         Tournament.belongsTo(models.League, {
             foreignKey: 'league',
             as: 'leagueData'

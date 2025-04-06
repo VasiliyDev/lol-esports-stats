@@ -7,6 +7,7 @@ const { processLeaguesData, dropRegions } = require("../services/lolEsports/leag
 const { processAllLeaguesTournaments } = require("../services/lolEsports/tournamentService");
 const {processAllTournamentsEvents, processAllTournamentsMatches, processAllMatchDetails} = require("../services/lolEsports/matchService");
 const {processAllGamesWindows} = require("../services/lolEsports/gameWindowService");
+const {createFramesForAllDatedGames} = require("../services/lolEsports/gameFramesService");
 
 /**
  * Reset database tables for regions
@@ -57,6 +58,10 @@ const startParsing = async (req, res) => {
         logger.info('Processing game window data');
         const gameWindowStats = await processAllGamesWindows(lolEsportsAPI);
 
+        // Step 6: Fetch all datas
+
+        const gameFramesStats = await createFramesForAllDatedGames()
+
         // Return combined stats
         return res.json({
             status: 'success',
@@ -66,7 +71,8 @@ const startParsing = async (req, res) => {
                 tournaments: tournamentStats,
                 matches: matchStats,
                 matchDetails: matchDetailsStats,
-                gameWindows: gameWindowStats
+                gameWindows: gameWindowStats,
+                frameStats: gameFramesStats
             }
         });
     } catch (error) {

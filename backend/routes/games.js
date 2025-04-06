@@ -11,6 +11,8 @@ router.post('/similar',gameController.getSimilarGames)
 // GET games by team - specific routes need to come before generic parameter routes
 router.get('/team/:team', gameController.getGamesByTeam);
 
+
+
 // GET games by winner status (true/false)
 router.get('/winner/:status', gameController.getGamesByWinner);
 
@@ -28,5 +30,10 @@ router.put('/:id', gameController.updateGame);
 
 // DELETE a game
 router.delete('/:id', gameController.deleteGame);
+
+router.get('/:id/window', gameController.createFinishedGameFrames);
+
+module.exports = router;
+
 
 module.exports = router;

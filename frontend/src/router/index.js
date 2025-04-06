@@ -7,6 +7,7 @@ import ChampionList from "../pages/champions/ChampionList.vue";
 import CollectionPage from "@/pages/collections/CollectionPage.vue";
 import CollectionsList from "@/pages/collections/CollectionsList.vue"
 import TestPage from "@/pages/testPage/TestPage.vue";
+import SingleGame from "@/pages/games/components/SingleGame.vue";
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
         path: '/games',
         name: 'games',
         component: GamesListPage
+    },
+    {
+        path: '/games/:id',
+        component: SingleGame,
+        props: true
     },
     {
         path: '/champions',

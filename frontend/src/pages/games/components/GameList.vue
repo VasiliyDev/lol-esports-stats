@@ -11,11 +11,11 @@ const props = defineProps({
   }
 })
 const getTeam1Picks = (game) => {
-  return game.gamePlayers.filter(el=>el.participant_id <= 5)
+  return game.gamePlayers.filter(el => el.participant_id <= 5)
 }
 
 const getTeam2Picks = (game) => {
-  return game.gamePlayers.filter(el=> el.participant_id >= 6)
+  return game.gamePlayers.filter(el => el.participant_id >= 6)
 }
 
 const router = useRouter();
@@ -33,7 +33,7 @@ const createCollection = game => {
 }
 
 const collectionsStore = useCollectionStore()
-const addGameToCollection = (game) =>{
+const addGameToCollection = (game) => {
   console.log('here', game)
   collectionsStore.addGameToActiveCollection(game)
 }
@@ -43,7 +43,7 @@ const addGameToCollection = (game) =>{
 
 <template>
   <div class="table-wrapper">
-    {{collectionsStore.isActiveCollection}}
+    {{ collectionsStore.isActiveCollection }}
     <table v-if="games.length > 0">
       <thead>
       <tr>
@@ -58,13 +58,16 @@ const addGameToCollection = (game) =>{
       </thead>
       <tbody>
       <tr v-for="game in games" :key="game.id">
-        <td>{{ game.id }}</td>
+        <td>
+          <router-link :to="`/games/${game.id}`">{{ game.id }}</router-link>
+        </td>
         <td :class="{ 'winner-team': game.winner }">{{ game.blueTeam.name }}</td>
         <td>
           <div class="champion-grid">
             <div v-for="(pick, index) in getTeam1Picks(game)" :key="`t1-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick"
+                     :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>
@@ -76,7 +79,8 @@ const addGameToCollection = (game) =>{
           <div class="champion-grid">
             <div v-for="(pick, index) in getTeam2Picks(game)" :key="`t2-${index}`" class="champion-icon">
               <div>
-                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick" :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
+                <img v-if="pick" :src="`https://gol.gg/_img/champions_icon/${pick.champion.name}.png`" :alt="pick"
+                     :title="`${pick.champion.name} / ${pick.player.name}`" width="40" height="40">
                 <div v-else class="empty-pick"></div>
                 <div>{{ pick.category }}</div>
               </div>
@@ -95,7 +99,7 @@ const addGameToCollection = (game) =>{
             <button class="action-button" @click="createCollection(game)">
               Create collection
             </button>
-            <button v-if="!collectionsStore.isGameInCollection(game.id)"  @click="addGameToCollection(game)">
+            <button v-if="!collectionsStore.isGameInCollection(game.id)" @click="addGameToCollection(game)">
               Add to collection
             </button>
           </div>

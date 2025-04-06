@@ -1,4 +1,3 @@
-// createDb.js
 const models = require('./models');
 const logger = require('./utils/logger');
 
@@ -6,17 +5,17 @@ async function createDatabase() {
     try {
         console.log('Creating database tables...');
 
-        // Disable foreign key checks temporarily or use deferred constraints
         const sequelize = models.sequelize;
 
-        // For PostgreSQL, we need a careful approach to handle dependencies
-        // First, sync models that don't have foreign key dependencies
+        console.log('Loaded models:', Object.keys(models));
+
+        // Synch non-dependent models
         await models.Region.sync({ force: true });
         await models.Team.sync({ force: true });
         await models.Category.sync({ force: true });
         await models.Player.sync({ force: true });
 
-        // Then sync models with simple dependencies
+        // Simple dependent models
         await models.League.sync({ force: true });
         await models.Champion.sync({ force: true });
         await models.Tournament.sync({ force: true });
@@ -24,11 +23,14 @@ async function createDatabase() {
         await models.Game.sync({ force: true });
         await models.Collection.sync({ force: true });
 
-        // Finally sync models with complex dependencies
+        // Complex dependent models
         await models.TeamMatch.sync({ force: true });
         await models.VOD.sync({ force: true });
         await models.GamePlayer.sync({ force: true });
         await models.CollectionGameRelation.sync({ force: true });
+        await models.Frame.sync({ force: true });
+
+        await models.FrameChampionPlayerGold.sync({ force: true });
 
         console.log('Database tables created successfully!');
         process.exit(0);
