@@ -8,20 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/models/frame.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/frame_champion_player_gold..js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/frame_event.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/esportsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/esportsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/gameController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/createDb.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/createDb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/gamePlayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game_player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/match.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/match.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/player.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/tournament.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/tournament.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/games.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/games.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/frame.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/frame.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Vue Composition API Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -60,29 +50,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.gameController.js.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/vasiliy/work/bettingProject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.gameController.js.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vasiliy/work/betting/historical-data&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -159,7 +149,12 @@
       <workItem from="1743784125533" duration="1101000" />
       <workItem from="1743794388662" duration="1926000" />
       <workItem from="1743807610476" duration="1760000" />
-      <workItem from="1743814544904" duration="22451000" />
+      <workItem from="1743814544904" duration="29403000" />
+      <workItem from="1743978990567" duration="667000" />
+      <workItem from="1744232634746" duration="11302000" />
+      <workItem from="1744312167510" duration="7999000" />
+      <workItem from="1744378731386" duration="639000" />
+      <workItem from="1744412111325" duration="5743000" />
     </task>
     <servers />
   </component>

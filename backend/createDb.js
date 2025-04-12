@@ -31,6 +31,7 @@ async function createDatabase() {
         await models.Frame.sync({ force: true });
 
         await models.FrameChampionPlayerGold.sync({ force: true });
+        await models.FrameEvent.sync({ force: true });
 
         console.log('Database tables created successfully!');
         process.exit(0);

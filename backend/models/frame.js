@@ -51,6 +51,11 @@ module.exports = (sequelize) => {
             onDelete: 'CASCADE',
             hooks: true
         });
+        Frame.hasMany(models.FrameEvent, {
+            foreignKey: 'frame_id',
+            as: 'frameEvents',
+            onDelete: 'CASCADE'
+        });
     };
 
     return Frame;
