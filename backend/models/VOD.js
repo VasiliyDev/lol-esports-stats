@@ -20,6 +20,10 @@ module.exports = (sequelize) => {
         parameter: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        provider: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {
         tableName: 'vods',

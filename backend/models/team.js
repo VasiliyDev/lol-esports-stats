@@ -1,4 +1,4 @@
-// models/team.js
+// models/team.js (modified)
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -21,6 +21,11 @@ module.exports = (sequelize) => {
         image: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        external_id: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: true
         }
     }, {
         tableName: 'teams',
@@ -33,6 +38,10 @@ module.exports = (sequelize) => {
         Team.hasMany(models.TeamMatch, {
             foreignKey: 'team_id',
             as: 'matches'
+        });
+        Team.hasMany(models.TeamRating, {
+            foreignKey: 'team_id',
+            as: 'ratings'
         });
     };
 

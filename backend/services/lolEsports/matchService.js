@@ -1,7 +1,7 @@
 // services/lolEsports/matchService.js
 const models = require('../../models');
 const logger = require('../../utils/logger');
-const { associateTeamsWithMatch } = require('./teamService');
+const {associateTeamsWithMatch} = require('./teamService');
 const {startingDate} = require("../../filters/parsing_restrictions");
 const {Op} = require("sequelize");
 const {processMatchDetails} = require("./matchDetailService");
@@ -136,7 +136,7 @@ const processCompletedTournaments = async (tournamentsData, tournamentId) => {
 
                 // Check if match already exists
                 let match = await models.Match.findOne({
-                    where: { lol_id: event.match.id }
+                    where: {lol_id: event.match.id}
                 });
 
                 // Create or update match
@@ -188,6 +188,7 @@ const processGamesForMatch = async (games, matchId, stats) => {
         // Process games in batches to avoid overwhelming the API
         const BATCH_SIZE = 3; // Process 3 games at a time
         for (let i = 0; i < games.length; i += BATCH_SIZE) {
+
             const batch = games.slice(i, i + BATCH_SIZE);
             const gamePromises = batch.map(async (gameData, index) => {
                 try {
@@ -198,7 +199,7 @@ const processGamesForMatch = async (games, matchId, stats) => {
 
                     // Check if game already exists
                     let game = await models.Game.findOne({
-                        where: { lol_id: gameData.id }
+                        where: {lol_id: gameData.id}
                     });
 
                     // Game data to save
@@ -217,10 +218,6 @@ const processGamesForMatch = async (games, matchId, stats) => {
                         stats.gamesUpdated++;
                     }
 
-                    // Process VODs for this game
-                    if (gameData.vods && Array.isArray(gameData.vods)) {
-                        await processVODsForGame(gameData.vods, game.id, stats);
-                    }
 
                     return game;
                 } catch (error) {
@@ -232,7 +229,7 @@ const processGamesForMatch = async (games, matchId, stats) => {
                         try {
                             // Retry once
                             let game = await models.Game.findOne({
-                                where: { lol_id: gameData.id }
+                                where: {lol_id: gameData.id}
                             });
 
                             const gameToSave = {
@@ -249,9 +246,6 @@ const processGamesForMatch = async (games, matchId, stats) => {
                                 stats.gamesUpdated++;
                             }
 
-                            if (gameData.vods && Array.isArray(gameData.vods)) {
-                                await processVODsForGame(gameData.vods, game.id, stats);
-                            }
 
                             return game;
                         } catch (retryError) {
@@ -287,40 +281,6 @@ const processGamesForMatch = async (games, matchId, stats) => {
 };
 
 // Helper function to process VODs for a game
-const processVODsForGame = async (vods, gameId, stats) => {
-    // First, delete existing VODs for this game to avoid duplicates
-    await models.VOD.destroy({
-        where: { game_id: gameId }
-    });
-
-    // Process all VODs in parallel
-    const vodPromises = vods.map(async (vod) => {
-        try {
-            if (!vod.parameter) {
-                return null; // Skip VODs without parameters
-            }
-
-            const newVod = await models.VOD.create({
-                game_id: gameId,
-                parameter: vod.parameter
-            });
-
-            stats.vodsCreated++;
-            return newVod;
-        } catch (error) {
-            logger.error(`Error processing VOD for game ${gameId}: ${error.message}`);
-            stats.errors.push({
-                gameId,
-                error: error.message,
-                vodParameter: vod.parameter
-            });
-            return null;
-        }
-    });
-
-    // Wait for all VODs to be processed
-    await Promise.all(vodPromises);
-};
 
 const processAllTournamentsMatches = async (lolEsportsAPI) => {
     const stats = {
@@ -389,7 +349,7 @@ const processAllTournamentsMatches = async (lolEsportsAPI) => {
                             // Retry once
                             const tournamentsData = await lolEsportsAPI.getCompletedTournaments(tournament.lol_id);
                             const tournamentStats = await processCompletedTournaments(tournamentsData, tournament.id);
-                            
+
                             // Update stats
                             stats.totalMatchesCreated += tournamentStats.matchesCreated;
                             stats.totalMatchesUpdated += tournamentStats.matchesUpdated;
@@ -459,8 +419,8 @@ const processGameWindowsForCompletedMatches = async (lolEsportsAPI) => {
             where: {
                 state: 'completed',
                 [Op.or]: [
-                    { winner_team_id: null },
-                    { '$gamePlayers.id$': null }
+                    {winner_team_id: null},
+                    {'$gamePlayers.id$': null}
                 ]
             },
             include: [
@@ -487,7 +447,7 @@ const processGameWindowsForCompletedMatches = async (lolEsportsAPI) => {
                     // Get game window data with current time as startingTime
                     const currentTime = new Date().toISOString();
                     const gameWindow = await lolEsportsAPI.getWindow(game.lol_id, currentTime);
-                    
+
                     if (!gameWindow || !gameWindow.frames || gameWindow.frames.length === 0) {
                         logger.warn(`No game window data found for game ${game.lol_id}`);
                         return;
@@ -495,7 +455,7 @@ const processGameWindowsForCompletedMatches = async (lolEsportsAPI) => {
 
                     // Get the last frame to determine winner
                     const lastFrame = gameWindow.frames[gameWindow.frames.length - 1];
-                    
+
                     // Find the winner team by checking which team has more gold
                     const blueTeamGold = lastFrame.blueTeam?.totalGold || 0;
                     const redTeamGold = lastFrame.redTeam?.totalGold || 0;

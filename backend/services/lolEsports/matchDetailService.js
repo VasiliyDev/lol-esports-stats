@@ -7,6 +7,39 @@ const { findOrCreateTeam } = require('./teamService');
  * @param {Object} matchDetails - The match details from getEventsDetails API
  * @returns {Promise<Object>} - Stats about processed data
  */
+const processVODsForGame = async (vods, gameId, stats) => {
+    // First, delete existing VODs for this game to avoid duplicates
+    await models.VOD.destroy({
+        where: {game_id: gameId}
+    });
+
+    // Process VODs sequentially
+    for (const vod of vods) {
+        try {
+            if (!vod.parameter) {
+                continue; // Skip VODs without parameters
+            }
+            console.log(vod,'VOOD')
+
+            const newVod = await models.VOD.create({
+                game_id: gameId,
+                parameter: vod.parameter,
+                ...(vod.provider ? {provider: vod.provider} : {})
+            });
+
+            stats.vodsCreated++;
+        } catch (error) {
+            logger.error(`Error processing VOD for game ${gameId}: ${error.message}`);
+            stats.errors.push({
+                gameId,
+                error: error.message,
+                vodParameter: vod.parameter
+            });
+        }
+    }
+
+    console.log(`Processed ${vods.length} VODs for game ${gameId}`);
+};
 const processMatchDetails = async (matchDetails) => {
     console.log(matchDetails);
     if (!matchDetails || !matchDetails|| !matchDetails.event) {
@@ -88,6 +121,10 @@ const processMatchDetails = async (matchDetails) => {
                     } else {
                         await game.update(gameToSave);
                         stats.gamesUpdated++;
+                    }
+                    // Process VODs for this game
+                    if (gameData.vods && Array.isArray(gameData.vods)) {
+                        await processVODsForGame(gameData.vods, game.id, stats);
                     }
                 } catch (error) {
                     logger.error(`Error processing game ${gameData.id} for match ${eventData.id}: ${error.message}`);

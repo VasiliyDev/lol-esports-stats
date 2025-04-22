@@ -51,7 +51,7 @@ const getEventById = async (req, res) => {
  */
 const createEvent = async (req, res) => {
     try {
-        console.log(req.body);
+        //console.log(req.body);
 
         // Check if link exists in request
         if (!req.body.link) {
@@ -85,7 +85,7 @@ const createEvent = async (req, res) => {
         eventData.parsed_at = null;
         eventData.parsed = false;
 
-        console.log(eventData);
+        //console.log(eventData);
         const newEvent = await models.Event.create(eventData);
         return res.status(201).json(newEvent);
     } catch (error) {

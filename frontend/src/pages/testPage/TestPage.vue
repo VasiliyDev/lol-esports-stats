@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import LolEsportsAPI from './lolesports-api';
 import {parsingApi} from "@/pages/testPage/test-parsing.js";
 import {gameApi} from "@/api/games.js";
+import {fetchLoLEsportsTeamGpr} from "@/api/api.js";
 
 // Initialize API
 const api = new LolEsportsAPI();
@@ -64,13 +65,17 @@ const clearLeagues = async () => {
 const testFrame = async () => {
   await gameApi.parseFramesByGameId('113470687277255863')
 }
-
+const getTeams = async()=>{
+  const response = await fetchLoLEsportsTeamGpr()
+  //console.log(response)
+}
 
 </script>
 
 <template>
   <div class="api-tester">
     <h1>LoL Esports API Tester</h1>
+    <button @click="getTeams">GetTeams</button>
     <button @click="startParsing">Start parsing</button>
     <button @click="clearLeagues">Clear leagues</button>
     <button @click="testFrame">Test frame</button>

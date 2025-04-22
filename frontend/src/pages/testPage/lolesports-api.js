@@ -61,27 +61,29 @@ export default class LolEsportsAPI {
         const data = await response.json();
         return data.data;
     }
-async getWindow(gameId, startingTime = "") {
-    // If no startingTime is provided, use current time minus 30 seconds to be safe
-    let currentTime = startingTime;
-    
-    if (!startingTime) {
-        const now = new Date();
-        // Subtract 30 seconds to ensure we're beyond the 20-second restriction
-        now.setTime(now.getTime() - 30 * 1000);
-        // Round down to nearest 10 seconds
-        now.setMilliseconds(0);
-        now.setSeconds(Math.floor(now.getSeconds() / 10) * 10);
-        currentTime = now.toISOString();
+
+    async getWindow(gameId, startingTime = "") {
+        // If no startingTime is provided, use current time minus 30 seconds to be safe
+        let currentTime = startingTime;
+
+        if (!startingTime) {
+            const now = new Date();
+            // Subtract 30 seconds to ensure we're beyond the 20-second restriction
+            now.setTime(now.getTime() - 30 * 1000);
+            // Round down to nearest 10 seconds
+            now.setMilliseconds(0);
+            now.setSeconds(Math.floor(now.getSeconds() / 10) * 10);
+            currentTime = now.toISOString();
+        }
+
+        const params = currentTime ? `?startingTime=${currentTime}` : "";
+        const response = await fetch(`${this.liveStatsUrl}/window/${gameId}${params}`, {
+            method: "GET",
+            headers: this.headers
+        });
+        return await response.json();
     }
-    
-    const params = currentTime ? `?startingTime=${currentTime}` : "";
-    const response = await fetch(`${this.liveStatsUrl}/window/${gameId}${params}`, {
-        method: "GET",
-        headers: this.headers
-    });
-    return await response.json();
-}
+
     async getMatchTimeline(gameId) {
         const response = await fetch(`${this.liveStatsUrl}/details/${gameId}`, {
             method: "GET",
@@ -98,5 +100,14 @@ async getWindow(gameId, startingTime = "") {
         });
         const data = await response.json();
         return data.data;
+    }
+    async getTeams(){
+        const response = await fetch(`${this.baseUrl}/getTeams?hl=en-US`, {
+            method: "GET",
+            headers: this.headers
+        });
+        const data = await response.json();
+        return data.data;
+
     }
 }

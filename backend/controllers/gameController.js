@@ -168,7 +168,7 @@ const getGameById = async (req, res) => {
  */
 const createGame = async (req, res) => {
     try {
-        console.log(req.body);
+        //console.log(req.body);
 
         // Check if game with same event already exists
         const existingGame = await models.Game.findOne({
@@ -204,7 +204,7 @@ const createGame = async (req, res) => {
             });
         }
 
-        console.log(gameData);
+        //console.log(gameData);
         const newGame = await models.Game.create(gameData);
         return res.status(201).json(newGame);
     } catch (error) {
