@@ -1,6 +1,6 @@
-const allowedLeagues = ['lec','lck','lta_n','lta_cross','first_stand','worlds','msi']
+const allowedLeagues = ['msi']
 const startingDate = new Date('2025-01-01');
-
+const teamRestrictionAllAtOnce = ['BLG','T1']
 module.exports = {
-    allowedLeagues, startingDate
+    allowedLeagues, startingDate, teamRestrictionAllAtOnce
 }

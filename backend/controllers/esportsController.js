@@ -1,13 +1,12 @@
 // controllers/esportsController.js
 const models = require('../models');
 const logger = require('../utils/logger');
-const {main:mainParse} = require("../services/parsingService");
-const { lolEsportsAPI } = require("../services/lolEsports/lolEsportsApiService")
-const { processLeaguesData, dropRegions } = require("../services/lolEsports/leagueService");
-const { processAllLeaguesTournaments } = require("../services/lolEsports/tournamentService");
-const {processAllTournamentsEvents, processAllTournamentsMatches, processAllMatchDetails} = require("../services/lolEsports/matchService");
-const {processAllGamesWindows} = require("../services/lolEsports/gameWindowService");
-const {createFramesForAllDatedGames} = require("../services/lolEsports/gameFramesService");
+const { lolEsportsAPI } = require("../services/game-data/lolEsportsApiService")
+const { processLeaguesData, dropRegions } = require("../services/game-data/leagueService");
+const { processAllLeaguesTournaments } = require("../services/game-data/tournamentService");
+const {processAllTournamentsEvents, processAllTournamentsMatches, processAllMatchDetails} = require("../services/game-data/matchService");
+const {processAllGamesWindows} = require("../services/game-data/gameWindowService");
+const {createFramesForAllDatedGames} = require("../services/game-data/gameFramesService");
 
 /**
  * Reset database tables for regions

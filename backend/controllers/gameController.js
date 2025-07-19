@@ -2,7 +2,7 @@
 const models = require('../models');
 const logger = require('../utils/logger');
 const {Op} = require("sequelize");
-const {createFramesForGame} = require("../services/lolEsports/gameFramesService");
+const {createFramesForGame} = require("../services/game-data/gameFramesService");
 
 
 // The Game model is now accessible as models.Game

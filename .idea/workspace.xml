@@ -8,14 +8,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/models/team_rating.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/eventController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/eventController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/esportsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/esportsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/eventController.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/gameController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/VOD.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/VOD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/team.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchDetailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/lolEsports/matchDetailService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/lolEsports/matchService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/leagueController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_champion_parameters_value.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/regionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/ttt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/filters/parsing_restrictions.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/filters/parsing_restrictions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/events.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/scripts/reset-db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/gameService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/gameFramesService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/gameFramesService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/gameWindowService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/gameWindowService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/leagueService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/leagueService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsApiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/lolEsportsApiService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsDataProcessingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_parameters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchDetailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/matchDetailService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/matchService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/teamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/teamService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/tournamentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/tournamentService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/panda/panda.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/panda/pandaApiService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/parsingService.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +46,7 @@
       <list>
         <option value="Vue Composition API Component" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -53,41 +70,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.gameController.js.executor": "Debug",
-    "Node.js.matchService.js.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/vasiliy/work/Xpel/xpel-backoffice-be/xpel-backoffice-fe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.gameController.js.executor&quot;: &quot;Debug&quot;,
+    &quot;Node.js.matchService.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/vasiliy/work/Xpel/xpel-backoffice-be/xpel-backoffice-fe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/backend/services" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/models/specifications" />
       <recent name="$PROJECT_DIR$/backend/filters" />
       <recent name="$PROJECT_DIR$/backend/services/lolEsports" />
       <recent name="$PROJECT_DIR$/frontend/src/pages/testPage" />
       <recent name="$PROJECT_DIR$/frontend/src/pages/events/list" />
-      <recent name="$PROJECT_DIR$/frontend/src/pages/games" />
     </key>
   </component>
   <component name="SharedIndexes">

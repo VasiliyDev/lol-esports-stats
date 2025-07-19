@@ -1,6 +1,5 @@
 // routes/index.js
 const healthRoutes = require('./health');
-const eventRoutes = require('./events');
 const gameRoutes = require('./games')
 const championRoutes = require('./champions')
 const collectionsRoutes = require('./collections')
@@ -9,7 +8,6 @@ const parsing = require('./parsing')
 module.exports = (app) => {
     // Register all routes
     app.use('/', healthRoutes);
-    app.use('/api/events', eventRoutes);
     app.use('/api/games', gameRoutes)
     app.use('/api/champions', championRoutes)
     app.use('/api/collections', collectionsRoutes)

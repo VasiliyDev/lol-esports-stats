@@ -5,7 +5,7 @@ const {associateTeamsWithMatch} = require('./teamService');
 const {startingDate} = require("../../filters/parsing_restrictions");
 const {Op} = require("sequelize");
 const {processMatchDetails} = require("./matchDetailService");
-
+const {teamRestrictionAllAtOnce}  = require("../../filters/parsing_restrictions");
 /**
  * Process match details for all matches
  * @param {Object} lolEsportsAPI - The LoL Esports API client
@@ -91,6 +91,9 @@ const processAllMatchDetails = async (lolEsportsAPI) => {
 };
 
 
+// Import should be at the top of your file
+// import {teamRestrictionAllAtOnce} from "../../filters/parsing_restrictions";
+
 const processCompletedTournaments = async (tournamentsData, tournamentId) => {
     if (!tournamentsData || !tournamentsData.schedule || !tournamentsData.schedule.events || !tournamentId) {
         throw new Error('Invalid events data format or missing tournamentId');
@@ -102,6 +105,7 @@ const processCompletedTournaments = async (tournamentsData, tournamentId) => {
         teamsCreated: 0,
         teamsUpdated: 0,
         teamsAssociated: 0,
+        matchesSkipped: 0, // Added to track skipped matches
         errors: []
     };
 
@@ -113,15 +117,52 @@ const processCompletedTournaments = async (tournamentsData, tournamentId) => {
         }
 
         // Process all events in parallel
-        const eventPromises = tournamentsData.schedule.events.map(async (event) => {
+        const tournamentsPromises = tournamentsData.schedule.events.map(async (event) => {
             try {
                 if (!event.match || !event.match.id) {
                     logger.warn('Event missing match data', event);
                     return null;
                 }
 
+                // Check if teams exist and filter based on team restrictions
+                if (event.match.teams && Array.isArray(event.match.teams) && event.match.teams.length >= 2) {
+                    const team1 = event.match.teams[0];
+                    const team2 = event.match.teams[1];
+
+                    // Get team codes only
+                    const team1Code = team1.code;
+                    const team2Code = team2.code;
+
+                    // Handle different restriction array scenarios
+                    let isValidMatch = true; // Default to accept all matches
+
+                    if (!teamRestrictionAllAtOnce || teamRestrictionAllAtOnce.length === 0) {
+                        // Empty array: accept all matches
+                        isValidMatch = true;
+                    } else if (teamRestrictionAllAtOnce.length === 1) {
+                        // Single element: accept if either team matches
+                        isValidMatch = (team1Code === teamRestrictionAllAtOnce[0] || team2Code === teamRestrictionAllAtOnce[0]);
+                    } else {
+                        // Two or more elements: both teams must match in either order
+                        isValidMatch = (
+                            (team1Code === teamRestrictionAllAtOnce[0] && team2Code === teamRestrictionAllAtOnce[1]) ||
+                            (team1Code === teamRestrictionAllAtOnce[1] && team2Code === teamRestrictionAllAtOnce[0])
+                        );
+                    }
+
+                    if (!isValidMatch) {
+                        logger.info(`Skipping match ${event.match.id}: Team1: ${team1Code}, Team2: ${team2Code} (restriction: [${teamRestrictionAllAtOnce.join(', ')}])`);
+                        stats.matchesSkipped++;
+                        return null; // Skip this match
+                    }
+                } else {
+                    logger.warn(`Match ${event.match.id} does not have valid teams array`, event.match);
+                    stats.matchesSkipped++;
+                    return null; // Skip this match
+                }
+
                 // Convert dates from string to Date objects
-                const startTime = event.startTime ? new Date(event.startTime) : null;
+                const startTime = event.startTime ? new Date(event.startTime) : null; // Fixed: was using tournament.startTime
 
                 // Process match data (without team details now)
                 const matchData = {
@@ -173,7 +214,7 @@ const processCompletedTournaments = async (tournamentsData, tournamentId) => {
         });
 
         // Wait for all events to be processed
-        await Promise.all(eventPromises);
+        await Promise.all(tournamentsPromises);
 
         return stats;
     } catch (error) {
