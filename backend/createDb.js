@@ -14,6 +14,7 @@ async function createDatabase() {
         await models.Team.sync({ force: true });
         await models.Category.sync({ force: true });
         await models.Player.sync({ force: true });
+        await models.ClassificationList.sync({ force: true }); // No dependencies
 
         // Simple dependent models
         await models.League.sync({ force: true });
@@ -22,6 +23,7 @@ async function createDatabase() {
         await models.Match.sync({ force: true });
         await models.Game.sync({ force: true });
         await models.Collection.sync({ force: true });
+        await models.ClassificationParameters.sync({ force: true }); // Depends on ClassificationList
 
         // Complex dependent models
         await models.TeamMatch.sync({ force: true });
@@ -32,7 +34,10 @@ async function createDatabase() {
 
         await models.FrameChampionPlayerGold.sync({ force: true });
         await models.FrameEvent.sync({ force: true });
-        await models.TeamRating.sync({force:true})
+        await models.TeamRating.sync({force:true});
+
+        // Classifications - most complex (depends on both ClassificationParameters and Champion)
+        await models.ClassificationChampionParameterValue.sync({ force: true });
 
         console.log('Database tables created successfully!');
         process.exit(0);

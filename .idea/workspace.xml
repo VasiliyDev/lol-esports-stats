@@ -9,29 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/esportsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/esportsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/eventController.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/gameController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/leagueController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_champion_parameters_value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/regionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/ttt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/filters/parsing_restrictions.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/filters/parsing_restrictions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/events.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/scripts/reset-db.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/gameService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/gameFramesService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/gameFramesService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/gameWindowService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/gameWindowService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/leagueService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/leagueService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsApiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/lolEsportsApiService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/lolEsportsDataProcessingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/specifications/specifications_parameters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchDetailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/matchDetailService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/matchService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/matchService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/teamService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/teamService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/lolEsports/tournamentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/game-data/tournamentService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/panda/panda.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/panda/pandaApiService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/parsingService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_champion_parameters_value.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_champion_parameter_value.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_parameters.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_parameters.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
