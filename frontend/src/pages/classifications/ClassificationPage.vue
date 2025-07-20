@@ -57,11 +57,7 @@ const { mutateAsync: saveChampionsMutation, isPending: isPendingSaveChampions } 
 });
 
 // Watch for data changes to initialize champions data
-watch(classificationInfo, (newData) => {
-  if (newData) {
-    initializeChampionsData(newData);
-  }
-}, { immediate: true });
+
 
 const classification = computed(() => classificationInfo.value?.classification);
 const parameters = computed(() => classification.value?.parameters || []);
@@ -92,6 +88,19 @@ const updateChampionParameter = (championId, parameterId, value) => {
       hasUnsavedChanges.value = true;
     }
   }
+};
+
+// Generate random values for all parameters with 0 values
+const generateRandomValues = () => {
+  championsData.value.forEach(champion => {
+    champion.parameterValues.forEach(paramValue => {
+      if (paramValue.value === 0) {
+        paramValue.value = Math.floor(Math.random() * 10) + 1; // Random number from 1 to 10
+      }
+    });
+  });
+  hasUnsavedChanges.value = true;
+  toast.success('Random values generated for parameters with 0 values!');
 };
 
 // Modal handlers
@@ -213,6 +222,13 @@ const resetChanges = () => {
     initializeChampionsData(classificationInfo.value);
   }
 };
+
+watch(classificationInfo, (newData) => {
+  if (newData) {
+    initializeChampionsData(newData);
+  }
+}, { immediate: true });
+
 </script>
 
 <template>
@@ -263,6 +279,12 @@ const resetChanges = () => {
         <div class="section-header">
           <h2>Champions Data ({{ championsData.length }})</h2>
           <div class="champions-actions">
+            <button v-if="parameters.length && championsData.length" 
+                    class="action-button generate-random" 
+                    @click="generateRandomValues"
+                    :disabled="isPendingSaveChampions">
+              Generate Random
+            </button>
             <button v-if="hasUnsavedChanges" 
                     class="action-button secondary" 
                     @click="resetChanges"
@@ -659,6 +681,15 @@ const resetChanges = () => {
     
     &:hover:not(:disabled) {
       background-color: #c82333;
+    }
+  }
+  
+  &.generate-random {
+    background-color: #28a745;
+    color: white;
+    
+    &:hover:not(:disabled) {
+      background-color: #218838;
     }
   }
   

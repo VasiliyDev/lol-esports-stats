@@ -13,6 +13,7 @@ import {
   LinearScale,
   PointElement
 } from 'chart.js';
+import ClassificationTable from "@/components/ClassificationTable.vue";
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -166,7 +167,6 @@ const goldDiffOptions = {
   }
 };
 
-
 const goldDiffNormalizedOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -216,7 +216,6 @@ const goldDiffNormalizedOptions = {
     }
   }
 };
-
 
 const goldDerivativeOptions = {
   responsive: true,
@@ -365,39 +364,6 @@ const redTeamPlayers = computed(() => {
   const players = gameData.value.gamePlayers.filter(p => p.team_side === "red");
   return sortPlayersByPosition(players);
 });
-
-// Watch for changes in view mode and update chart
-watch(viewMode, () => {
-  if (gameData.value) {
-    updateChartData(gameData.value);
-  }
-});
-
-// Watch for changes in game data and update chart
-watch(() => gameData.value, (newData) => {
-  if (!newData) return;
-  updateChartData(newData);
-}, {immediate: true});
-
-watch(() => normalizedGodDiffWidth.value, (newWidth) => {
-  // Convert to number first if it's a string
-  const numWidth = typeof newWidth === 'string' ? parseFloat(newWidth) : newWidth
-
-  // Check if valid number after conversion
-  if (numWidth === undefined || typeof numWidth !== 'number' || isNaN(numWidth) || numWidth < 0) return
-
-
-  const roundedWidth = Math.round(numWidth)
-  if (roundedWidth === 0) return
-  if (numWidth !== roundedWidth) {
-    normalizedGodDiffWidth.value = roundedWidth;
-    return;
-  }
-
-
-  updateChartData(gameData.value);
-
-})
 
 const calcAverageGoldNormalized = (array, index, width = normalizedGodDiffWidth.value) => {
   if (!array || array.length === 0) {
@@ -625,7 +591,6 @@ const updateChartData = (newData) => {
           goldDerivative[frameIndex] = goldDiffNormalized[frameIndex] - goldDiffNormalized[frameIndex - 1]
       })
 
-
       // Create datasets for teams with proper time scaling
       chartData.value = {
         labels: frameTimeSeconds,
@@ -734,177 +699,85 @@ const updateChartData = (newData) => {
     console.error("Error processing game data:", error);
   }
 };
+
+// MOVE WATCHERS AFTER FUNCTION DECLARATION
+// Watch for changes in view mode and update chart
+watch(viewMode, () => {
+  if (gameData.value) {
+    updateChartData(gameData.value);
+  }
+});
+
+// Watch for changes in game data and update chart
+watch(() => gameData.value, (newData) => {
+  if (!newData) return;
+  updateChartData(newData);
+}, {immediate: true});
+
+watch(() => normalizedGodDiffWidth.value, (newWidth) => {
+  // Convert to number first if it's a string
+  const numWidth = typeof newWidth === 'string' ? parseFloat(newWidth) : newWidth
+
+  // Check if valid number after conversion
+  if (numWidth === undefined || typeof numWidth !== 'number' || isNaN(numWidth) || numWidth < 0) return
+
+  const roundedWidth = Math.round(numWidth)
+  if (roundedWidth === 0) return
+  if (numWidth !== roundedWidth) {
+    normalizedGodDiffWidth.value = roundedWidth;
+    return;
+  }
+
+  updateChartData(gameData.value);
+})
 </script>
 
 <template>
-  <div style="width:100%">
-    <h2>Gold Progression Analysis</h2>
-
-    <!-- View toggle buttons -->
-    <div class="view-toggle">
-      <button
-          @click="viewMode = 'player'"
-          :class="{ active: viewMode === 'player' }"
-      >
-        By Player
-      </button>
-      <button
-          @click="viewMode = 'team'"
-          :class="{ active: viewMode === 'team' }"
-      >
-        By Team
-      </button>
-      <div class="normalized-width-input">
-        <label for="normalized-width">Normalization Width:</label>
-        <input id="normalized-width" v-model="normalizedGodDiffWidth" type="number" min="1" max="20"/>
+  <div class="game-analysis">
+    <!-- Your existing chart components go here -->
+    
+    <!-- Add the Classification Table -->
+    <div v-if="gameData" class="classification-section">
+      <ClassificationTable :game-data="gameData" />
+    </div>
+    
+    <!-- Your existing Line chart components -->
+    <div class="charts-container">
+      <div class="chart-wrapper">
+        <Line :data="chartData" :options="chartOptions" />
       </div>
-    </div>
-
-    <!-- Team legend -->
-    <div class="team-legend" v-if="gameData">
-      <div class="team blue">
-        <div class="color-dot blue"></div>
-        <span>{{ gameData.blueTeam.code }} ({{ gameData.blueTeam.name }})</span>
+      
+      <div class="chart-wrapper">
+        <Line :data="goldDiffChartData" :options="goldDiffOptions" />
       </div>
-      <div class="team red">
-        <div class="color-dot red"></div>
-        <span>{{ gameData.redTeam.code }} ({{ gameData.redTeam.name }})</span>
-      </div>
-    </div>
-
-    <div v-if="!gameData" class="loading">
-      Loading game data...
-    </div>
-
-    <div v-else-if="chartData.labels.length === 0" class="no-data">
-      No gold progression data found.
-    </div>
-
-    <div v-else class="chart-container">
-      <Line
-          :data="chartData"
-          :options="chartOptions"
-      />
-    </div>
-
-    <!-- Gold difference chart (only in team view) -->
-    <div v-if="viewMode === 'team' && gameData">
-      <h3>Gold Difference ({{ gameData.blueTeam.code }} - {{ gameData.redTeam.code }})</h3>
-      <div class="chart-container gold-diff">
-        <Line
-            :data="goldDiffChartData"
-            :options="goldDiffOptions"
-        />
-      </div>
-    </div>
-
-    <div v-if="viewMode === 'team' && gameData">
-      <h3>Gold Difference Normalized ({{ gameData.blueTeam.code }} - {{ gameData.redTeam.code }})</h3>
-      <div class="chart-container gold-diff">
-        <Line
-            :data="goldDiffNormalizedChartData"
-            :options="goldDiffNormalizedOptions"
-        />
-      </div>
-    </div>
-
-    <div v-if="viewMode === 'team' && gameData">
-      <h3>Gold Derivative ({{ gameData.blueTeam.code }} - {{ gameData.redTeam.code }})</h3>
-      <div class="chart-container gold-diff">
-        <Line
-            :data="goldDerivativeChartData"
-            :options="goldDerivativeOptions"
-        />
-      </div>
-    </div>
-
-    <!-- NEW: Simplified gold difference chart -->
-    <div v-if="viewMode === 'team' && gameData">
-      <h3>Simplified Gold Difference ({{ gameData.blueTeam.code }} - {{ gameData.redTeam.code }})</h3>
-      <div class="chart-container gold-diff">
-        <Line
-            :data="simplifiedGoldDiffChartData"
-            :options="simplifiedGoldDiffOptions"
-        />
-      </div>
+      
+      <!-- ... other charts ... -->
     </div>
   </div>
 </template>
+
 <style scoped lang="scss">
-.loading, .no-data {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  font-size: 18px;
-  color: #666;
+.game-analysis {
+  padding: 20px;
+  width:100%;
 }
 
-.chart-container {
-  position: relative;
-  height: min(80vh, 600px);
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #f8f9fa;
+.classification-section {
+  width:100%;
+  margin-bottom: 40px;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.chart-wrapper {
+  height: 400px;
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-}
-
-.view-toggle {
-  display: flex;
-  margin: 15px 0;
-
-  button {
-    padding: 8px 16px;
-    border: 1px solid #ccc;
-    background-color: #f4f4f4;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:first-child {
-      border-radius: 4px 0 0 4px;
-    }
-
-    &:last-child {
-      border-radius: 0 4px 4px 0;
-    }
-
-    &.active {
-      background-color: #4c8bf5;
-      color: white;
-      border-color: #4c8bf5;
-    }
-
-    &:hover:not(.active) {
-      background-color: #e0e0e0;
-    }
-  }
-}
-
-.team-legend {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-
-  .team {
-    display: flex;
-    align-items: center;
-
-    .color-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      margin-right: 6px;
-
-      &.blue {
-        background-color: rgba(54, 162, 235, 0.8);
-      }
-
-      &.red {
-        background-color: rgba(255, 99, 132, 0.8);
-      }
-    }
-  }
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

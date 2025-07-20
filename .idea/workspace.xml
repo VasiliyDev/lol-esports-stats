@@ -8,12 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/controllers/classificationController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/classification.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/gameController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +165,7 @@
       <workItem from="1745272885089" duration="671000" />
       <workItem from="1745276472288" duration="1000" />
       <workItem from="1745276604152" duration="28000" />
-      <workItem from="1753020869128" duration="5625000" />
+      <workItem from="1753020869128" duration="8977000" />
     </task>
     <servers />
   </component>

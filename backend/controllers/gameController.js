@@ -8,11 +8,150 @@ const {createFramesForGame} = require("../services/game-data/gameFramesService")
 // The Game model is now accessible as models.Game
 
 /**
+ * Calculate team classification stats by summing parameter values
+ * This is a separate function that can be customized for different calculation methods
+ * @param {Array} teamChampions - Array of champion objects with classification_stats
+ * @param {Object} classification - Classification object with parameters
+ * @returns {Object} - Object with parameter names as keys and summed values
+ */
+const calculateTeamClassificationStats = (teamChampions, classification) => {
+    if (!classification || !classification.parameters || !teamChampions || teamChampions.length === 0) {
+        return {};
+    }
+
+    const teamStats = {};
+
+    // Initialize all parameters with 0
+    classification.parameters.forEach(param => {
+        teamStats[param.name] = 0;
+    });
+
+    // Sum up all parameter values from team champions
+    teamChampions.forEach(champion => {
+        if (champion.classification_stats) {
+            Object.keys(champion.classification_stats).forEach(paramName => {
+                if (teamStats.hasOwnProperty(paramName)) {
+                    // Ensure we convert to number and handle null/undefined values
+                    const value = parseFloat(champion.classification_stats[paramName]) || 0;
+                    teamStats[paramName] += value;
+                }
+            });
+        }
+    });
+
+    return teamStats;
+};
+
+/**
+ * Helper function to attach classification stats to champions and return classification info
+ */
+const attachClassificationStatsToChampions = async (champions, classificationId) => {
+    try {
+        // If no classificationId provided, try to get the first available classification
+        let targetClassificationId = classificationId;
+        if (!targetClassificationId) {
+            const firstClassification = await models.ClassificationList.findOne({
+                order: [['id', 'ASC']]
+            });
+            if (firstClassification) {
+                targetClassificationId = firstClassification.id;
+            } else {
+                // No classifications available, return champions without stats
+                return {
+                    champions: champions.map(champion => ({
+                        ...champion.toJSON(),
+                        classification_stats: {}
+                    })),
+                    classification: null
+                };
+            }
+        }
+
+        // Get classification with parameters
+        const classification = await models.ClassificationList.findByPk(targetClassificationId, {
+            include: [
+                {
+                    model: models.ClassificationParameters,
+                    as: 'parameters'
+                }
+            ]
+        });
+
+        if (!classification) {
+            logger.warn(`Classification with ID ${targetClassificationId} not found`);
+            return {
+                champions: champions.map(champion => ({
+                    ...champion.toJSON(),
+                    classification_stats: {}
+                })),
+                classification: null
+            };
+        }
+
+        // Get champion IDs
+        const championIds = champions.map(champion => champion.id);
+
+        // Get parameter values for these champions
+        const parameterValues = await models.ClassificationChampionParameterValue.findAll({
+            where: {
+                champion_id: championIds
+            },
+            include: [
+                {
+                    model: models.ClassificationParameters,
+                    as: 'parameter',
+                    where: { classification_id: targetClassificationId },
+                    required: false
+                }
+            ]
+        });
+
+        // Transform champions data to include classification_stats
+        const championsWithStats = champions.map(champion => {
+            const championData = champion.toJSON();
+            const classificationStats = {};
+
+            // Initialize all parameters with 0
+            classification.parameters.forEach(param => {
+                classificationStats[param.name] = 0;
+            });
+
+            // Fill in actual values if they exist
+            const championParamValues = parameterValues.filter(pv => pv.champion_id === champion.id);
+            championParamValues.forEach(paramValue => {
+                if (paramValue.parameter) {
+                    // Ensure we store the value as a number
+                    classificationStats[paramValue.parameter.name] = parseFloat(paramValue.value) || 0;
+                }
+            });
+
+            championData.classification_stats = classificationStats;
+            return championData;
+        });
+
+        return {
+            champions: championsWithStats,
+            classification: classification
+        };
+    } catch (error) {
+        logger.error(`Error attaching classification stats: ${error.message}`);
+        // Return original champions without stats if error occurs
+        return {
+            champions: champions.map(champion => ({
+                ...champion.toJSON(),
+                classification_stats: {}
+            })),
+            classification: null
+        };
+    }
+};
+
+/**
  * Get all games
  */
 
-const getGames = async () => {
-    return await models.Game.findAll({
+const getGames = async (classificationId = null) => {
+    const games = await models.Game.findAll({
         where: {
             state: {
                 [Op.ne]: 'unneeded'  // not equal to 'unneeded'
@@ -42,10 +181,87 @@ const getGames = async () => {
             {model: models.Match, as: 'match'}
         ]
     });
+
+    // Collect all unique champions across all games
+    const championSet = new Set();
+    const championObjects = [];
+    
+    games.forEach(game => {
+        if (game.gamePlayers) {
+            game.gamePlayers.forEach(gamePlayer => {
+                if (gamePlayer.champion && !championSet.has(gamePlayer.champion.id)) {
+                    championSet.add(gamePlayer.champion.id);
+                    championObjects.push(gamePlayer.champion);
+                }
+            });
+        }
+    });
+
+    let classification = null;
+    let championStatsMap = new Map();
+
+    if (championObjects.length > 0) {
+        // Convert to proper model instances for the helper function
+        const championInstances = championObjects.map(championData => ({
+            id: championData.id,
+            toJSON: () => championData
+        }));
+
+        const result = await attachClassificationStatsToChampions(championInstances, classificationId);
+        classification = result.classification;
+        
+        // Create a map for quick lookup
+        result.champions.forEach(champion => {
+            championStatsMap.set(champion.id, champion.classification_stats);
+        });
+    }
+
+    // Transform games to include classification stats for champions and add classification to each game
+    const gamesWithStats = games.map(game => {
+        const gameData = game.toJSON();
+        
+        // Add classification info to the game
+        gameData.classification = classification;
+        
+        // Map back the stats to the game players and separate by teams
+        const blueTeamChampions = [];
+        const redTeamChampions = [];
+        
+        if (gameData.gamePlayers) {
+            gameData.gamePlayers = gameData.gamePlayers.map(gamePlayer => {
+                if (gamePlayer.champion) {
+                    const stats = championStatsMap.get(gamePlayer.champion.id);
+                    if (stats) {
+                        gamePlayer.champion.classification_stats = stats;
+                    } else {
+                        gamePlayer.champion.classification_stats = {};
+                    }
+                    
+                    // Collect champions by team for team classification calculation
+                    if (gamePlayer.team_side === 'blue') {
+                        blueTeamChampions.push(gamePlayer.champion);
+                    } else if (gamePlayer.team_side === 'red') {
+                        redTeamChampions.push(gamePlayer.champion);
+                    }
+                }
+                return gamePlayer;
+            });
+        }
+        
+        // Calculate team classification stats
+        gameData.blue_team_classification = calculateTeamClassificationStats(blueTeamChampions, classification);
+        gameData.red_team_classification = calculateTeamClassificationStats(redTeamChampions, classification);
+        
+        return gameData;
+    });
+
+    return gamesWithStats;
 }
+
 const getAllGames = async (req, res) => {
     try {
-        const games = await getGames();
+        const { classification_id } = req.query;
+        const games = await getGames(classification_id ? parseInt(classification_id) : null);
         return res.json(games);
     } catch (error) {
         logger.error(`Error fetching games: ${error.message}`);
@@ -86,7 +302,8 @@ const findMatchesNumber = (game, filter) => {
 const getSimilarGames = async (req, res) => {
     try {
         const {filter} = req.body;
-        const games = await getGames();
+        const { classification_id } = req.query;
+        const games = await getGames(classification_id ? parseInt(classification_id) : null);
         const filteredGames = games.filter(el => {
             const matchesNum = findMatchesNumber(el, filter);
             return matchesNum >= 7;
@@ -106,6 +323,8 @@ const getSimilarGames = async (req, res) => {
 const getGameById = async (req, res) => {
         try {
             const {id} = req.params;
+            const { classification_id } = req.query;
+            
             const game = await models.Game.findByPk(id, {
                         include: [
 
@@ -151,7 +370,73 @@ const getGameById = async (req, res) => {
                 });
             }
 
-            return res.json(game);
+            // Transform the game to include classification stats for champions
+            const gameData = game.toJSON();
+            
+            // Collect all unique champions from the game
+            const championSet = new Set();
+            const championObjects = [];
+            
+            if (gameData.gamePlayers) {
+                gameData.gamePlayers.forEach(gamePlayer => {
+                    if (gamePlayer.champion && !championSet.has(gamePlayer.champion.id)) {
+                        championSet.add(gamePlayer.champion.id);
+                        championObjects.push(gamePlayer.champion);
+                    }
+                });
+            }
+
+            let classification = null;
+
+            if (championObjects.length > 0) {
+                // Convert to proper model instances for the helper function
+                const championInstances = championObjects.map(championData => ({
+                    id: championData.id,
+                    toJSON: () => championData
+                }));
+
+                const classificationIdToUse = classification_id ? parseInt(classification_id) : null;
+                const result = await attachClassificationStatsToChampions(championInstances, classificationIdToUse);
+                const championsWithStats = result.champions;
+                classification = result.classification;
+                
+                // Separate champions by teams for team classification calculation
+                const blueTeamChampions = [];
+                const redTeamChampions = [];
+                
+                // Map back the stats to the game players
+                gameData.gamePlayers = gameData.gamePlayers.map(gamePlayer => {
+                    if (gamePlayer.champion) {
+                        const championWithStats = championsWithStats.find(c => c.id === gamePlayer.champion.id);
+                        if (championWithStats) {
+                            gamePlayer.champion.classification_stats = championWithStats.classification_stats;
+                        } else {
+                            gamePlayer.champion.classification_stats = {};
+                        }
+                        
+                        // Collect champions by team for team classification calculation
+                        if (gamePlayer.team_side === 'blue') {
+                            blueTeamChampions.push(gamePlayer.champion);
+                        } else if (gamePlayer.team_side === 'red') {
+                            redTeamChampions.push(gamePlayer.champion);
+                        }
+                    }
+                    return gamePlayer;
+                });
+                
+                // Calculate team classification stats
+                gameData.blue_team_classification = calculateTeamClassificationStats(blueTeamChampions, classification);
+                gameData.red_team_classification = calculateTeamClassificationStats(redTeamChampions, classification);
+            } else {
+                // No champions found, set empty team classification stats
+                gameData.blue_team_classification = {};
+                gameData.red_team_classification = {};
+            }
+
+            // Add classification info to the game
+            gameData.classification = classification;
+
+            return res.json(gameData);
         } catch
             (error) {
             logger.error(`Error fetching game ${req.params.id}: ${error.message}`);
@@ -277,6 +562,7 @@ const deleteGame = async (req, res) => {
 const getGamesByTeam = async (req, res) => {
     try {
         const {team} = req.params;
+        const { classification_id } = req.query;
         const games = await models.Game.findAll({
             where: {
                 [models.Sequelize.Op.or]: [
@@ -302,6 +588,7 @@ const getGamesByTeam = async (req, res) => {
 const getGamesByWinner = async (req, res) => {
     try {
         const {status} = req.params;
+        const { classification_id } = req.query;
         const winnerStatus = status === 'true';
 
         const games = await models.Game.findAll({
@@ -324,6 +611,7 @@ const getGamesByWinner = async (req, res) => {
 const getGamesByEvent = async (req, res) => {
     try {
         const {event} = req.params;
+        const { classification_id } = req.query;
         const games = await models.Game.findAll({
             where: {event}
         });
@@ -367,5 +655,6 @@ module.exports = {
     getGamesByTeam,
     getGamesByWinner,
     getGamesByEvent,
-    createFinishedGameFrames
+    createFinishedGameFrames,
+    calculateTeamClassificationStats // Export the calculation function for potential reuse
 };
