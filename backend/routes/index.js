@@ -4,6 +4,7 @@ const gameRoutes = require('./games')
 const championRoutes = require('./champions')
 const collectionsRoutes = require('./collections')
 const parsing = require('./parsing')
+const classification = require('./classification')
 
 module.exports = (app) => {
     // Register all routes
@@ -12,6 +13,7 @@ module.exports = (app) => {
     app.use('/api/champions', championRoutes)
     app.use('/api/collections', collectionsRoutes)
     app.use('/api/parsing', parsing)
+    app.use('/api/classifications', classification);
 
     // Add other route groups here
     // app.use('/api/users', userRoutes);

@@ -8,10 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/controllers/classificationController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/classification.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_champion_parameters_value.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_champion_parameter_value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/specifications/specifications_parameters.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification/classification_parameters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -80,18 +82,18 @@
       <recent name="$PROJECT_DIR$/backend/services" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/models" />
       <recent name="$PROJECT_DIR$/backend/models/specifications" />
       <recent name="$PROJECT_DIR$/backend/filters" />
       <recent name="$PROJECT_DIR$/backend/services/lolEsports" />
       <recent name="$PROJECT_DIR$/frontend/src/pages/testPage" />
-      <recent name="$PROJECT_DIR$/frontend/src/pages/events/list" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-PS-251.23774.436" />
-        <option value="bundled-php-predefined-a98d8de5180a-aaeaa8632555-com.jetbrains.php.sharedIndexes-PS-251.23774.436" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
+        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
       </set>
     </attachedChunks>
   </component>
@@ -167,6 +169,7 @@
       <workItem from="1745272885089" duration="671000" />
       <workItem from="1745276472288" duration="1000" />
       <workItem from="1745276604152" duration="28000" />
+      <workItem from="1753020869128" duration="5625000" />
     </task>
     <servers />
   </component>

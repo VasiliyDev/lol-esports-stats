@@ -51,6 +51,11 @@ module.exports = (sequelize) => {
             foreignKey: 'champion_id',
             as: 'championsGold'
         });
+
+        Champion.hasMany(models.ClassificationChampionParameterValue, {
+            foreignKey: 'champion_id',
+            as: 'parameterValues'
+        });
     };
 
     return Champion;

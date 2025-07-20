@@ -27,6 +27,11 @@ module.exports = (sequelize) => {
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
+        },
+        value: {
+            type: DataTypes.DECIMAL(10, 2), // Allows decimal values with 2 decimal places
+            allowNull: false,
+            defaultValue: 0
         }
     }, {
         tableName: 'classification_champion_parameter_value',

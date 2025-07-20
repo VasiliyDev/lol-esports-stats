@@ -27,11 +27,18 @@ const activeRoute = ref(route.name);
           Champions
         </router-link>
         <router-link
-            :to="`/events`"
+            :to="`/classifications`"
             class="nav-link"
-            :class="{ active: route.path.includes('/events') }"
+            :class="{ active: route.path.includes('/classifications') }"
         >
-          Events
+          Classifications
+        </router-link>
+        <router-link
+            :to="`/test`"
+            class="nav-link"
+            :class="{ active: route.path.includes('/test') }"
+        >
+          Api work
         </router-link>
         <router-link
             :to="`/collections`"
