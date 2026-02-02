@@ -13,7 +13,6 @@ import {
   LinearScale,
   PointElement
 } from 'chart.js';
-import ClassificationTable from "@/components/ClassificationTable.vue";
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -736,11 +735,7 @@ watch(() => normalizedGodDiffWidth.value, (newWidth) => {
   <div class="game-analysis">
     <!-- Your existing chart components go here -->
     
-    <!-- Add the Classification Table -->
-    <div v-if="gameData" class="classification-section">
-      <ClassificationTable :game-data="gameData" />
-    </div>
-    
+
     <!-- Your existing Line chart components -->
     <div class="charts-container">
       <div class="chart-wrapper">
