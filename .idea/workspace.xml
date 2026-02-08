@@ -10,19 +10,6 @@
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/createDb.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/createDb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/classification_list.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/classification_parameters.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/collection_game_relations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/collections.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/team.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/team_rating.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/classification.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/collections.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/games.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/games.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "new-dev",
     "last_opened_file_path": "/home/vasiliy/work/betting/historical-data",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -185,7 +172,8 @@
       <workItem from="1745276604152" duration="28000" />
       <workItem from="1753020869128" duration="8977000" />
       <workItem from="1770118548762" duration="8000" />
-      <workItem from="1770525283361" duration="874000" />
+      <workItem from="1770525283361" duration="1977000" />
+      <workItem from="1770527917218" duration="405000" />
     </task>
     <servers />
   </component>

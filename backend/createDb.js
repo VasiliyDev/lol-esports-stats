@@ -11,8 +11,7 @@ async function createDatabase() {
 
         // Synch non-dependent models
         await models.Region.sync({ force: true });
-        await models.Team.sync({ force: true });
-        await models.Category.sync({ force: true });
+        await models.Team.sync({ force: true });;
         await models.Player.sync({ force: true });
 
         // Simple dependent models
@@ -30,7 +29,6 @@ async function createDatabase() {
 
         await models.FrameChampionPlayerGold.sync({ force: true });
         await models.FrameEvent.sync({ force: true });
-        await models.TeamRating.sync({force:true});
         console.log('Database tables created successfully!');
         process.exit(0);
     } catch (error) {
