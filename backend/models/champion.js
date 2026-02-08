@@ -37,10 +37,7 @@ module.exports = (sequelize) => {
     });
 
     Champion.associate = (models) => {
-        Champion.belongsTo(models.Category, {
-            foreignKey: 'category',
-            as: 'categoryData'
-        });
+
 
         Champion.hasMany(models.GamePlayer, {
             foreignKey: 'champion_id',
@@ -52,10 +49,6 @@ module.exports = (sequelize) => {
             as: 'championsGold'
         });
 
-        Champion.hasMany(models.ClassificationChampionParameterValue, {
-            foreignKey: 'champion_id',
-            as: 'parameterValues'
-        });
     };
 
     return Champion;

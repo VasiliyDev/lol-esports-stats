@@ -1,8 +1,5 @@
 <script setup>
 import {useRouter} from "vue-router";
-import {useCollections} from "../../../../composables/collections.js";
-import {useCollectionStore} from "../../../stores/collection.js";
-import {storeToRefs} from "pinia";
 
 const props = defineProps({
   games: {
@@ -19,31 +16,13 @@ const getTeam2Picks = (game) => {
 }
 
 const router = useRouter();
-const collectionStore = useCollections();
-const createCollection = game => {
-  const picks = {
-    1: getTeam1Picks(game).map(el => el.category),
-    2: getTeam2Picks(game).map(el => el.category)
-  }
-  const filter = {
-    categories: picks
-  }
-  collectionStore.setFilter(filter);
-  router.push({name: 'collection'})
-}
 
-const collectionsStore = useCollectionStore()
-const addGameToCollection = (game) => {
-  console.log('here', game)
-  collectionsStore.addGameToActiveCollection(game)
-}
 
 
 </script>
 
 <template>
   <div class="table-wrapper">
-    {{ collectionsStore.isActiveCollection }}
     <table v-if="games.length > 0">
       <thead>
       <tr>
@@ -96,12 +75,6 @@ const addGameToCollection = (game) => {
           <div class="controls d-flex ac">
             <a v-if="game.link" :href="game.link" target="_blank" class="game-link">Watch</a>
             <span v-else class="no-link">N/A</span>
-            <button class="action-button" @click="createCollection(game)">
-              Create collection
-            </button>
-            <button v-if="!collectionsStore.isGameInCollection(game.id)" @click="addGameToCollection(game)">
-              Add to collection
-            </button>
           </div>
         </td>
       </tr>

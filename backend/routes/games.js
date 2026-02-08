@@ -6,7 +6,6 @@ const gameController = require('../controllers/gameController');
 // GET all games
 router.get('/', gameController.getAllGames);
 
-router.post('/similar',gameController.getSimilarGames)
 
 // GET games by team - specific routes need to come before generic parameter routes
 router.get('/team/:team', gameController.getGamesByTeam);

@@ -104,15 +104,6 @@ module.exports = (sequelize) => {
             hooks: true,
         });
 
-        // belongsToMany (Using through association explicitly allowing cascade delete)
-        Game.belongsToMany(models.Collection, {
-            through: models.CollectionGameRelation,
-            as: 'collections',
-            foreignKey: 'game_id',
-            otherKey: 'collection_id',
-            onDelete: 'CASCADE',
-            hooks: true,
-        });
     };
 
     return Game;

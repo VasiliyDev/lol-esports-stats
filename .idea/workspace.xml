@@ -9,7 +9,20 @@
   <component name="ChangeListManager">
     <list default="true" id="edcc9e0b-5b61-4a18-8e41-7f784435fb33" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/gameController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/createDb.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/createDb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/champion.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/champion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/classification_champion_parameter_value.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/classification_list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/classification_parameters.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/collection_game_relations.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/collections.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/team_rating.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/classification.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/collections.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/games.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/games.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +52,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/backend/package.json" />
+    <dismissed value="$PROJECT_DIR$/frontend/package.json" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -48,30 +65,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.gameController.js.executor&quot;: &quot;Debug&quot;,
-    &quot;Node.js.matchService.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vasiliy/work/Xpel/xpel-backoffice-be/xpel-backoffice-fe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.gameController.js.executor": "Debug",
+    "Node.js.matchService.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/vasiliy/work/betting/historical-data",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/home/vasiliy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -88,8 +106,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
-        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-PS-252.25557.128" />
+        <option value="bundled-php-predefined-a98d8de5180a-ce40d0652d34-com.jetbrains.php.sharedIndexes-PS-252.25557.128" />
       </set>
     </attachedChunks>
   </component>
@@ -166,6 +184,8 @@
       <workItem from="1745276472288" duration="1000" />
       <workItem from="1745276604152" duration="28000" />
       <workItem from="1753020869128" duration="8977000" />
+      <workItem from="1770118548762" duration="8000" />
+      <workItem from="1770525283361" duration="874000" />
     </task>
     <servers />
   </component>

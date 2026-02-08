@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-import CollectionSidebar from "./components/CollectionSidebar.vue";
+import { useRoute } from 'vue-router';;
 
 const route = useRoute();
 const activeRoute = ref(route.name);
@@ -27,32 +26,17 @@ const activeRoute = ref(route.name);
           Champions
         </router-link>
         <router-link
-            :to="`/classifications`"
-            class="nav-link"
-            :class="{ active: route.path.includes('/classifications') }"
-        >
-          Classifications
-        </router-link>
-        <router-link
             :to="`/test`"
             class="nav-link"
             :class="{ active: route.path.includes('/test') }"
         >
           Api work
         </router-link>
-        <router-link
-            :to="`/collections`"
-            class="nav-link"
-            :class="{ active: route.path.includes('/collection') }"
-        >
-          Collections
-        </router-link>
       </div>
     </nav>
 
     <main class="app-content">
       <router-view />
-      <CollectionSidebar/>
     </main>
   </div>
 </template>

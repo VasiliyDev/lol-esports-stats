@@ -39,10 +39,6 @@ module.exports = (sequelize) => {
             foreignKey: 'team_id',
             as: 'matches'
         });
-        Team.hasMany(models.TeamRating, {
-            foreignKey: 'team_id',
-            as: 'ratings'
-        });
     };
 
     return Team;
