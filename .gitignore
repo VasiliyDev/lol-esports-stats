@@ -39,6 +39,10 @@ out/
 .env.*
 */.env.*
 **/.env.*
+# ...but keep the committed example templates
+!.env.example
+!*/.env.example
+!**/.env.example
 
 # IDE - VSCode
 .vscode/*
