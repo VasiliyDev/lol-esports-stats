@@ -377,7 +377,7 @@ const processAllTournamentsMatches = async (lolEsportsAPI) => {
                     });
 
                     // Log progress
-                    logger.info(`Processed events for tournament ${tournament.slug}: created ${tournamentStats.matchesCreated} matches, ${tournamentStats.gamesCreated} games, ${tournamentStats.vodsCreated} VODs`);
+                    logger.info(`Processed events for tournament ${tournament.slug}: created ${tournamentStats.matchesCreated} matches, ${(tournamentStats as any).gamesCreated} games, ${(tournamentStats as any).vodsCreated} VODs`);
 
                     return tournamentStats;
                 } catch (error) {
@@ -509,7 +509,7 @@ const processGameWindowsForCompletedMatches = async (lolEsportsAPI) => {
                     }
 
                     // Prepare update data
-                    const updateData = {};
+                    const updateData: any = {};
                     if (winnerTeamId) {
                         updateData.winner_team_id = winnerTeamId;
                         stats.gamesWithWinnerFound++;
@@ -544,7 +544,7 @@ const processGameWindowsForCompletedMatches = async (lolEsportsAPI) => {
                                 }
 
                                 // Prepare update data for retry
-                                const updateData = {};
+                                const updateData: any = {};
                                 if (winnerTeamId) {
                                     updateData.winner_team_id = winnerTeamId;
                                     stats.gamesWithWinnerFound++;

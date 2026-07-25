@@ -1,6 +1,6 @@
 // src/api/gameApi.js
 
-import { api } from './api.js'
+import { api } from './api'
 
 /**
  * Game API functions

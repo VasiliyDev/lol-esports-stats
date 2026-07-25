@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import LolEsportsAPI from './lolesports-api';
-import {parsingApi} from "@/pages/testPage/test-parsing.js";
-import {gameApi} from "@/api/games.js";
-import {fetchLoLEsportsTeamGpr} from "@/api/api.js";
+import {parsingApi} from "@/pages/testPage/test-parsing";
+import {gameApi} from "@/api/games";
+import {fetchLoLEsportsTeamGpr} from "@/api/api";
 
 // Initialize API
 const api = new LolEsportsAPI();

@@ -1,5 +1,5 @@
-<script setup>
-import {championsApi} from "../../api/champions.js";
+<script setup lang="ts">
+import {championsApi} from "../../api/champions";
 import { keepPreviousData, useQuery,useQueryClient,useMutation } from "@tanstack/vue-query";
 import { computed, ref } from "vue";
 import AppSelect from "../../ui/AppSelect.vue";
@@ -47,7 +47,7 @@ const championsToShow = computed(()=>{
     return a.id>b.id?1:-1;
   })
 })
-import {ROLES} from "@/data.js";
+import {ROLES} from "@/data";
 
 const roleById = id=>{
   return ROLES[id];

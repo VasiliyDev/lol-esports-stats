@@ -78,7 +78,7 @@ const createFramesForGame = async (gameId, force = false) => {
     });
 
     if (!game) {
-        const error = new Error('Game not found in database');
+        const error: any = new Error('Game not found in database');
         error.statusCode = 404;
         throw error;
     }
@@ -214,7 +214,7 @@ const createFramesForGame = async (gameId, force = false) => {
             logger.warn(`Attempt ${attempts}/${maxAttempts} failed at timestamp ${currentTimestamp}: ${err.message}`);
 
             if (attempts >= maxAttempts) {
-                const timeoutError = new Error('Failed reaching API within max attempts.');
+                const timeoutError: any = new Error('Failed reaching API within max attempts.');
                 timeoutError.statusCode = 408;
                 throw timeoutError;
             }

@@ -9,10 +9,13 @@ const models = {};
 // Read all model files and import them
 fs.readdirSync(__dirname)
     .filter(file => {
+        const ext = file.slice(-3);
         return (
-            file.indexOf('.') !== 0 && // Ignore dot files
-            file !== 'index.js' &&     // Ignore this file
-            file.slice(-3) === '.js'   // Only .js files
+            file.indexOf('.') !== 0 &&                // Ignore dot files
+            file !== 'index.js' &&                    // Ignore this file
+            file !== 'index.ts' &&                    // Ignore this file
+            !file.endsWith('.d.ts') &&                // Ignore type declarations
+            (ext === '.js' || ext === '.ts')          // Only .js/.ts model files
         );
     })
     .forEach(file => {

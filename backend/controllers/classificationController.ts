@@ -568,7 +568,7 @@ const updateClassificationChampionParameters = async (req, res) => {
             // Process each parameter for this champion
             for (const [parameter_id, parameter_value] of Object.entries(parameters)) {
                 const paramId = parseInt(parameter_id);
-                const value = parseFloat(parameter_value);
+                const value = parseFloat(parameter_value as any);
 
                 // Validate parameter belongs to this classification
                 if (!validParameterIds.includes(paramId)) {

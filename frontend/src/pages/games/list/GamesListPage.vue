@@ -1,5 +1,5 @@
-<script setup>
-import {gameApi} from "../../../api/games.js";
+<script setup lang="ts">
+import {gameApi} from "../../../api/games";
 import { keepPreviousData, useQuery } from "@tanstack/vue-query";
 import { computed, ref } from "vue";
 import GameList from "@/pages/games/components/GameList.vue";

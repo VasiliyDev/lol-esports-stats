@@ -1,5 +1,5 @@
-<script setup>
-import { eventApi } from "../../../api/events.js";
+<script setup lang="ts">
+import { eventApi } from "../../../api/events";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/vue-query";
 import { computed, ref } from "vue";
 

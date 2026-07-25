@@ -1,4 +1,4 @@
-import { api } from '@/api/api.js'
+import { api } from '@/api/api'
 
 export const parsingApi = {
     // Get all games

@@ -32,7 +32,7 @@ app.listen(PORT, async () => {
 });
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (error) => {
+process.on('unhandledRejection', (error: any) => {
     logger.error(`Unhandled rejection: ${error.message}`);
     // Graceful shutdown if needed
     // process.exit(1);
