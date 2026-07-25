@@ -1,4 +1,4 @@
-# betsStatistic — LoL Esports match-data collector & viewer
+# lol-esports-stats — LoL Esports match-data collector & viewer
 
 A small full-stack project that collects **League of Legends esports** data
 (tournaments, matches, champion picks, game stats) and presents it in a simple web UI.
